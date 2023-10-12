@@ -1,11 +1,14 @@
 import { NetworkRequestStatus } from '../../store/networkRequestModel';
 import { TournamentsReduxModel } from './tournamentsModel';
 import {
+  EDIT_TOURNAMENT_ACTION,
   LOAD_TOURNAMENTS_DATA_ACTION,
   LOAD_TOURNAMENTS_DATA_FAIL_ACTION,
   LOAD_TOURNAMENTS_DATA_SUCCESS_ACTION,
   LOAD_TOURNAMENTS_LIST_END_ACTION,
 } from './tournamentsActions';
+import { AnyAction } from 'redux';
+import { produce } from 'immer';
 
 const initialState: TournamentsReduxModel = {
   networkRequestStatus: NetworkRequestStatus.InProgress,
@@ -16,7 +19,7 @@ const initialState: TournamentsReduxModel = {
 
 export default function tournaments(
   state = initialState,
-  action: any
+  action: AnyAction
 ): TournamentsReduxModel {
   switch (action.type) {
     case LOAD_TOURNAMENTS_DATA_ACTION:
@@ -58,6 +61,24 @@ export default function tournaments(
       };
 
     default:
-      return state;
+      return tournament(state, action);
   }
+}
+
+function tournament(
+  state = initialState,
+  action: AnyAction
+): TournamentsReduxModel {
+  if (action.type === EDIT_TOURNAMENT_ACTION) {
+    return produce(state, (draftState) => {
+      const index = draftState.tournaments.findIndex(
+        (tournamentData) => tournamentData.id === action.data.id
+      );
+      if (index !== -1) {
+        draftState.tournaments[index].name = action.data.name;
+      }
+    });
+  }
+
+  return state;
 }
