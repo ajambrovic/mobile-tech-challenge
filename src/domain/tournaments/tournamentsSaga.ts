@@ -1,8 +1,8 @@
 import {
-  loadTournamentsDataSuccessAction,
   loadTournamentsListEndAction,
   loadTournamentsDataFailAction,
   LOAD_TOURNAMENTS_DATA_ACTION,
+  loadTournamentsDataSuccessAction,
 } from './tournamentsActions';
 import { TournamentsServerModel } from './tournamentsModel';
 import { call, put, takeEvery } from 'typed-redux-saga';
@@ -21,7 +21,6 @@ function* doFetchTournamentsSaga({
 }) {
   try {
     const response = yield* call(fetch, `${FETCH_BASE_URL}?_page=${payload}`);
-
     const tournamentsData: TournamentsServerModel = yield response.json();
     if (tournamentsData.length > 0) {
       yield* put(loadTournamentsDataSuccessAction(tournamentsData));

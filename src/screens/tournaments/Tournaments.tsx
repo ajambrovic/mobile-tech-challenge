@@ -15,6 +15,7 @@ import { TournamentModel } from '../../domain/tournaments/tournamentsModel';
 import { useDispatch } from 'react-redux';
 import { loadTournamentsDataAction } from '../../domain/tournaments/tournamentsActions';
 import ActivityIndicator from '../../components/ActivityIndicator';
+import Button from '../../components/Button';
 
 const Tournaments = () => {
   return (
@@ -40,6 +41,11 @@ const TournamentsData = () => {
   const isListEnd = useTypedSelector((state) => getIsListEnd(state));
 
   const dispatch = useDispatch();
+
+  const requestData = () => {
+    dispatch(loadTournamentsDataAction(page));
+  };
+
   useEffect(() => {
     dispatch(loadTournamentsDataAction(page));
   }, [dispatch, page]);
@@ -54,7 +60,12 @@ const TournamentsData = () => {
   }
 
   if (loading === NetworkRequestStatus.Fail) {
-    return <Input>Something went wrong.</Input>;
+    return (
+      <>
+        <Input>Something went wrong.</Input>
+        <Button onPress={() => requestData()}>Retry</Button>
+      </>
+    );
   }
 
   if (tournamentsData.length === 0) {
