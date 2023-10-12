@@ -1,12 +1,12 @@
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
-import Input from '../../../components/Input';
+import H6 from '../../../components/H6';
 
 export const TournamentsInitialLoader = () => {
   return (
     <>
       <ActivityIndicator size={'large'} />
-      <Input>Loading tournaments ...</Input>
+      <H6>Loading tournaments ...</H6>
     </>
   );
 };

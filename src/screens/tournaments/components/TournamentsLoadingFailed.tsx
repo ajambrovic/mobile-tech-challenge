@@ -1,6 +1,6 @@
 import React from 'react';
-import Input from '../../../components/Input';
 import Button from '../../../components/Button';
+import H6 from '../../../components/H6';
 
 export const TournamentsLoadingFailed = ({
   retryFetchData,
@@ -9,7 +9,7 @@ export const TournamentsLoadingFailed = ({
 }) => {
   return (
     <>
-      <Input>Something went wrong.</Input>
+      <H6>Something went wrong.</H6>
       <Button onPress={retryFetchData}>Retry</Button>
     </>
   );

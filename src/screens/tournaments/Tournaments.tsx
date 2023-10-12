@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, ListRenderItemInfo, RefreshControl } from 'react-native';
 import Container from '../../components/Container';
 import H4 from '../../components/H4';
-import Input from '../../components/Input';
 import {
   getIsListEnd,
   getTournamentsData,
@@ -17,6 +16,7 @@ import { loadTournamentsDataAction } from '../../domain/tournaments/tournamentsA
 import { TournamentsInitialLoader } from './components/TournamentsInitialLoader';
 import { TournamentsLoadingFailed } from './components/TournamentsLoadingFailed';
 import { Tournament } from './components/Tournament';
+import H6 from '../../components/H6';
 
 const Tournaments = () => {
   return (
@@ -43,10 +43,6 @@ const TournamentsData = () => {
 
   const dispatch = useDispatch();
 
-  const requestData = () => {
-    dispatch(loadTournamentsDataAction(page));
-  };
-
   useEffect(() => {
     dispatch(loadTournamentsDataAction(page));
   }, [dispatch, page]);
@@ -60,7 +56,7 @@ const TournamentsData = () => {
   }
 
   if (tournamentsData.length === 0 && !userPulledToRefresh) {
-    return <Input> No tournaments found.</Input>;
+    return <H6> No tournaments found.</H6>;
   }
 
   return (
@@ -89,7 +85,7 @@ const TournamentsData = () => {
 
   function retryFetchData() {
     setUserPulledToRefresh(false);
-    requestData();
+    dispatch(loadTournamentsDataAction(page));
   }
 
   function onPullToRefresh() {
