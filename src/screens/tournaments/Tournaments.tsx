@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, FlatList } from 'react-native';
+import { FlatList } from 'react-native';
 import Container from '../../components/Container';
 import H4 from '../../components/H4';
 import Input from '../../components/Input';
@@ -14,6 +14,7 @@ import { NetworkRequestStatus } from '../../store/networkRequestModel';
 import { TournamentModel } from '../../domain/tournaments/tournamentsModel';
 import { useDispatch } from 'react-redux';
 import { loadTournamentsDataAction } from '../../domain/tournaments/tournamentsActions';
+import ActivityIndicator from '../../components/ActivityIndicator';
 
 const Tournaments = () => {
   return (
@@ -46,7 +47,7 @@ const TournamentsData = () => {
   if (initialLoad) {
     return (
       <>
-        <ActivityIndicator />
+        <ActivityIndicator size={'large'} />
         <Input>Loading tournaments ...</Input>
       </>
     );
