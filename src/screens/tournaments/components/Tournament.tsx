@@ -2,6 +2,7 @@ import React from 'react';
 import { TournamentModel } from '../../../domain/tournaments/tournamentsModel';
 import { View, Text, StyleSheet } from 'react-native';
 import { EditTournament } from './EditTournament';
+import { DeleteTournament } from './DeleteTournament';
 
 const styles = StyleSheet.create({
   container: {
@@ -47,6 +48,7 @@ export const Tournament = ({
         </Text>
         <Text style={styles.title}>Start date: {tournamentData.startDate}</Text>
         <EditTournament name={tournamentData.name} id={tournamentData.id} />
+        <DeleteTournament id={tournamentData.id} />
       </View>
     </View>
   );

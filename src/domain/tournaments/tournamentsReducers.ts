@@ -85,7 +85,7 @@ function tournament(
     case REMOVE_TOURNAMENT_ACTION:
       return produce(state, (draftState) => {
         const index = draftState.tournaments.findIndex(
-          (tournamentData) => tournamentData.id === action.data.id
+          (tournamentData) => tournamentData.id === action.data
         );
         if (index !== -1) {
           draftState.tournaments.splice(index, 1);
@@ -94,16 +94,11 @@ function tournament(
 
     case REVERT_TOURNAMENT_DELETION_ACTION:
       return produce(state, (draftState) => {
-        const index = draftState.tournaments.findIndex(
-          (tournamentData) => tournamentData.id === action.data.id
+        draftState.tournaments.splice(
+          action.data.tournamentIndex,
+          0,
+          action.data.tournament
         );
-        if (index !== -1) {
-          draftState.tournaments.splice(
-            action.data.tournamentIndex,
-            0,
-            action.data.tournament
-          );
-        }
       });
 
     default:

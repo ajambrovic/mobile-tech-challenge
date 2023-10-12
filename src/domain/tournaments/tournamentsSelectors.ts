@@ -13,7 +13,7 @@ export const getTournament = (state: RootState, id: string) => {
   const tournamentIndex = getTournamentsData(state).findIndex(
     (tournamentData) => tournamentData.id === id
   );
-  if (tournamentIndex) {
+  if (tournamentIndex > -1) {
     return {
       tournament: getTournamentsData(state)[tournamentIndex],
       tournamentIndex,
