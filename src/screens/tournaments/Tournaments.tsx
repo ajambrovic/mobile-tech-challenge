@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList } from 'react-native';
-import Container from '../components/Container';
-import H4 from '../components/H4';
-import Input from '../components/Input';
+import Container from '../../components/Container';
+import H4 from '../../components/H4';
+import Input from '../../components/Input';
 import {
   getIsListEnd,
   getTournamentsData,
   getTournamentsInitialLoad,
   getTournamentsNetworkStatus,
-} from '../domain/tournaments/tournamentsSelectors';
-import { useTypedSelector } from '../store';
-import { NetworkRequestStatus } from '../store/networkRequestModel';
-import { TournamentModel } from '../domain/tournaments/tournamentsModel';
+} from '../../domain/tournaments/tournamentsSelectors';
+import { useTypedSelector } from '../../store';
+import { NetworkRequestStatus } from '../../store/networkRequestModel';
+import { TournamentModel } from '../../domain/tournaments/tournamentsModel';
 import { useDispatch } from 'react-redux';
-import { loadTournamentsDataAction } from '../domain/tournaments/tournamentsActions';
+import { loadTournamentsDataAction } from '../../domain/tournaments/tournamentsActions';
 
 const Tournaments = () => {
   return (
