@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import Container from '../../components/Container';
 import H4 from '../../components/H4';
 import Input from '../../components/Input';
@@ -28,7 +28,7 @@ const Tournaments = () => {
 
 const TournamentsData = () => {
   const [page, setPage] = useState(1);
-
+  const [userPulledToRefresh, setUserPulledToRefresh] = useState(false);
   const loading = useTypedSelector((state) =>
     getTournamentsNetworkStatus(state)
   );
@@ -50,7 +50,7 @@ const TournamentsData = () => {
     dispatch(loadTournamentsDataAction(page));
   }, [dispatch, page]);
 
-  if (initialLoad) {
+  if (initialLoad && !userPulledToRefresh) {
     return (
       <>
         <ActivityIndicator size={'large'} />
@@ -63,12 +63,12 @@ const TournamentsData = () => {
     return (
       <>
         <Input>Something went wrong.</Input>
-        <Button onPress={() => requestData()}>Retry</Button>
+        <Button onPress={retryFetchData}>Retry</Button>
       </>
     );
   }
 
-  if (tournamentsData.length === 0) {
+  if (tournamentsData.length === 0 && !userPulledToRefresh) {
     return <Input> No tournaments found.</Input>;
   }
 
@@ -78,6 +78,15 @@ const TournamentsData = () => {
       renderItem={(tournament) => <Input>{tournament.item.id}</Input>}
       keyExtractor={keyExtractor}
       onEndReached={fetchMoreData}
+      refreshControl={
+        <RefreshControl
+          tintColor={'#FFF'}
+          onRefresh={onPullToRefresh}
+          refreshing={
+            userPulledToRefresh && loading === NetworkRequestStatus.InProgress
+          }
+        />
+      }
     />
   );
 
@@ -85,6 +94,16 @@ const TournamentsData = () => {
     if (!isListEnd && loading !== NetworkRequestStatus.InProgress) {
       setPage(page + 1);
     }
+  }
+
+  function retryFetchData() {
+    setUserPulledToRefresh(false);
+    requestData();
+  }
+
+  function onPullToRefresh() {
+    setUserPulledToRefresh(true);
+    setPage(1);
   }
 };
 

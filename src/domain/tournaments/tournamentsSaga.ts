@@ -5,7 +5,7 @@ import {
   loadTournamentsDataSuccessAction,
 } from './tournamentsActions';
 import { TournamentsServerModel } from './tournamentsModel';
-import { call, put, takeEvery } from 'typed-redux-saga';
+import { call, put, takeEvery, delay } from 'typed-redux-saga';
 
 const FETCH_BASE_URL = 'http://localhost:4000/tournaments';
 
@@ -20,6 +20,7 @@ function* doFetchTournamentsSaga({
   payload: number;
 }) {
   try {
+    yield* delay(1000);
     const response = yield* call(fetch, `${FETCH_BASE_URL}?_page=${payload}`);
     const tournamentsData: TournamentsServerModel = yield response.json();
     if (tournamentsData.length > 0) {
