@@ -5,6 +5,8 @@ import {
   LOAD_TOURNAMENTS_DATA_FAIL_ACTION,
   LOAD_TOURNAMENTS_DATA_SUCCESS_ACTION,
   LOAD_TOURNAMENTS_LIST_END_ACTION,
+  REMOVE_TOURNAMENT_ACTION,
+  REVERT_TOURNAMENT_DELETION_ACTION,
   UPDATE_TOURNAMENT_ACTION,
 } from './tournamentsActions';
 import { AnyAction } from 'redux';
@@ -69,16 +71,42 @@ function tournament(
   state = initialState,
   action: AnyAction
 ): TournamentsReduxModel {
-  if (action.type === UPDATE_TOURNAMENT_ACTION) {
-    return produce(state, (draftState) => {
-      const index = draftState.tournaments.findIndex(
-        (tournamentData) => tournamentData.id === action.data.id
-      );
-      if (index !== -1) {
-        draftState.tournaments[index].name = action.data.name;
-      }
-    });
-  }
+  switch (action.type) {
+    case UPDATE_TOURNAMENT_ACTION:
+      return produce(state, (draftState) => {
+        const index = draftState.tournaments.findIndex(
+          (tournamentData) => tournamentData.id === action.data.id
+        );
+        if (index !== -1) {
+          draftState.tournaments[index].name = action.data.name;
+        }
+      });
 
-  return state;
+    case REMOVE_TOURNAMENT_ACTION:
+      return produce(state, (draftState) => {
+        const index = draftState.tournaments.findIndex(
+          (tournamentData) => tournamentData.id === action.data.id
+        );
+        if (index !== -1) {
+          draftState.tournaments.splice(index, 1);
+        }
+      });
+
+    case REVERT_TOURNAMENT_DELETION_ACTION:
+      return produce(state, (draftState) => {
+        const index = draftState.tournaments.findIndex(
+          (tournamentData) => tournamentData.id === action.data.id
+        );
+        if (index !== -1) {
+          draftState.tournaments.splice(
+            action.data.tournamentIndex,
+            0,
+            action.data.tournament
+          );
+        }
+      });
+
+    default:
+      return state;
+  }
 }

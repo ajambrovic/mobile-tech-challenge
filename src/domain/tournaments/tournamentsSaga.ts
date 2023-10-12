@@ -5,10 +5,13 @@ import {
   loadTournamentsDataSuccessAction,
   EDIT_TOURNAMENT_ACTION,
   updateTournamentAction,
+  removeTournamentAction,
+  DELETE_TOURNAMENT_ACTION,
+  revertTournamentDeletionAction,
 } from './tournamentsActions';
 import { TournamentModel, TournamentsServerModel } from './tournamentsModel';
 import { call, put, select, takeEvery } from 'typed-redux-saga';
-import { getTournamentName } from './tournamentsSelectors';
+import { getTournament, getTournamentName } from './tournamentsSelectors';
 
 const FETCH_BASE_URL = 'http://localhost:4000/tournaments';
 
@@ -18,6 +21,10 @@ export function* fetchTournamentsSaga() {
 
 export function* editTournamentSaga() {
   yield* takeEvery(EDIT_TOURNAMENT_ACTION, doEditTournamentSaga);
+}
+
+export function* deleteTournamentSaga() {
+  yield* takeEvery(DELETE_TOURNAMENT_ACTION, doDeleteTournamentSaga);
 }
 
 function* doFetchTournamentsSaga({
@@ -64,5 +71,26 @@ function* doEditTournamentSaga({
     });
   } catch (error) {
     yield* put(updateTournamentAction({ ...data, name: currentName }));
+  }
+}
+
+function* doDeleteTournamentSaga({
+  data,
+}: {
+  type: string;
+  data: TournamentModel['id'];
+}) {
+  const currentTournament = yield* select(getTournament, data);
+  if (!currentTournament) {
+    return;
+  }
+
+  try {
+    yield* put(removeTournamentAction(data));
+    yield* call(fetch, `${FETCH_BASE_URL}?${data}`, {
+      method: 'DELETE',
+    });
+  } catch (error) {
+    yield* put(revertTournamentDeletionAction(currentTournament));
   }
 }

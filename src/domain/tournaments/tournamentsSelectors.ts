@@ -1,14 +1,24 @@
 import { RootState } from '../../reducers';
 
 export const getTournamentName = (state: RootState, id: string) => {
-  const tournament = getTournamentsData(state).find(
-    (tournamentData) => tournamentData.id === id
-  );
-  if (tournament) {
-    return tournament.name;
+  const tournamentData = getTournament(state, id);
+  if (tournamentData) {
+    return tournamentData.tournament.name;
   }
 
   return '';
+};
+
+export const getTournament = (state: RootState, id: string) => {
+  const tournamentIndex = getTournamentsData(state).findIndex(
+    (tournamentData) => tournamentData.id === id
+  );
+  if (tournamentIndex) {
+    return {
+      tournament: getTournamentsData(state)[tournamentIndex],
+      tournamentIndex,
+    };
+  }
 };
 
 export const getTournamentsInitialLoad = (state: RootState) => {

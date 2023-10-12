@@ -1,26 +1,18 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { TournamentModel } from '../../../domain/tournaments/tournamentsModel';
-import { View, StyleSheet, Modal, Alert } from 'react-native';
+import { View, StyleSheet, Modal } from 'react-native';
 import Button from '../../../components/Button';
-import Input from '../../../components/Input';
 import { useDispatch } from 'react-redux';
-import { editTournamentAction } from '../../../domain/tournaments/tournamentsActions';
+import { deleteTournamentAction } from '../../../domain/tournaments/tournamentsActions';
+import H6 from '../../../components/H6';
 
-export const EditTournament = ({
-  id,
-  name,
-}: Pick<TournamentModel, 'id' | 'name'>) => {
-  const [updatedName, onChangeText] = useState(name);
+export const DeleteTournament = ({ id }: Pick<TournamentModel, 'id'>) => {
   const [modalVisible, setModalVisible] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    onChangeText(name);
-  }, [name]);
-
   return (
     <>
-      <Button onPress={openModal}>Edit Tournament</Button>
+      <Button onPress={openModal}>Delete Tournament</Button>
       <Modal
         animationType="slide"
         transparent={true}
@@ -29,9 +21,9 @@ export const EditTournament = ({
       >
         <View style={stylesModal.centeredView}>
           <View style={stylesModal.modalView}>
-            <Input onChangeText={onChangeText} value={updatedName} />
+            <H6>Do you really want to delete this tournament?</H6>
             <Button onPress={closeModal}>Cancel</Button>
-            <Button onPress={updateTournamentData}>Update</Button>
+            <Button onPress={deleteTournament}>Confirm</Button>
           </View>
         </View>
       </Modal>
@@ -46,22 +38,8 @@ export const EditTournament = ({
     setModalVisible(false);
   }
 
-  function updateTournamentData() {
-    if (updatedName.trim().length === 0) {
-      Alert.alert("Can't update to an empty string");
-      closeModal();
-      return;
-    }
-
-    if (updatedName.match('[a-zA-Z0-9 ]') === null) {
-      Alert.alert(
-        'Invalid character found, only latin characters, numbers and spaces can be used'
-      );
-      closeModal();
-      return;
-    }
-
-    dispatch(editTournamentAction({ id, name: updatedName }));
+  function deleteTournament() {
+    dispatch(deleteTournamentAction(id));
     closeModal();
   }
 };

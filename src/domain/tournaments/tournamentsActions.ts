@@ -28,7 +28,6 @@ export function loadTournamentsListEndAction(): AnyAction {
     type: LOAD_TOURNAMENTS_LIST_END_ACTION,
   };
 }
-
 export function editTournamentAction(
   data: Pick<TournamentModel, 'id' | 'name'>
 ): AnyAction {
@@ -47,6 +46,30 @@ export function updateTournamentAction(
   };
 }
 
+export function deleteTournamentAction(id: TournamentModel['id']): AnyAction {
+  return {
+    type: DELETE_TOURNAMENT_ACTION,
+    data: id,
+  };
+}
+
+export function removeTournamentAction(id: TournamentModel['id']): AnyAction {
+  return {
+    type: REMOVE_TOURNAMENT_ACTION,
+    data: id,
+  };
+}
+
+export function revertTournamentDeletionAction(tournamentData: {
+  tournament: TournamentModel;
+  tournamentIndex: number;
+}) {
+  return {
+    type: REVERT_TOURNAMENT_DELETION_ACTION,
+    data: tournamentData,
+  };
+}
+
 export const LOAD_TOURNAMENTS_DATA_ACTION = 'tournaments/LOAD_DATA';
 export const LOAD_TOURNAMENTS_DATA_SUCCESS_ACTION =
   'tournaments/LOAD_DATA_SUCCESS';
@@ -55,3 +78,7 @@ export const LOAD_TOURNAMENTS_LIST_END_ACTION = 'tournaments/LOAD_LIST_END';
 
 export const EDIT_TOURNAMENT_ACTION = 'tournament/EDIT_TOURNAMENT_ACTION';
 export const UPDATE_TOURNAMENT_ACTION = 'tournament/UPDATE_TOURNAMENT_ACTION';
+export const DELETE_TOURNAMENT_ACTION = 'tournament/DELETE_TOURNAMENT_ACTION';
+export const REMOVE_TOURNAMENT_ACTION = 'tournament/REMOVE_TOURNAMENT_ACTION';
+export const REVERT_TOURNAMENT_DELETION_ACTION =
+  'tournament/REVERT_TOURNAMENT_DELETION_ACTION';
