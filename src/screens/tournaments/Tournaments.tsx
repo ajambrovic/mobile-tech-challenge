@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, RefreshControl } from 'react-native';
+import { FlatList, ListRenderItemInfo, RefreshControl } from 'react-native';
 import Container from '../../components/Container';
 import H4 from '../../components/H4';
 import Input from '../../components/Input';
@@ -16,6 +16,7 @@ import { useDispatch } from 'react-redux';
 import { loadTournamentsDataAction } from '../../domain/tournaments/tournamentsActions';
 import { TournamentsInitialLoader } from './components/TournamentsInitialLoader';
 import { TournamentsLoadingFailed } from './components/TournamentsLoadingFailed';
+import { Tournament } from './components/Tournament';
 
 const Tournaments = () => {
   return (
@@ -65,7 +66,7 @@ const TournamentsData = () => {
   return (
     <FlatList
       data={tournamentsData}
-      renderItem={(tournament) => <Input>{tournament.item.id}</Input>}
+      renderItem={renderItem}
       keyExtractor={keyExtractor}
       onEndReached={fetchMoreData}
       refreshControl={
@@ -96,6 +97,10 @@ const TournamentsData = () => {
     setPage(1);
   }
 };
+
+function renderItem(tournament: ListRenderItemInfo<TournamentModel>) {
+  return <Tournament tournamentData={tournament.item} />;
+}
 
 function keyExtractor(item: TournamentModel) {
   return item.id;

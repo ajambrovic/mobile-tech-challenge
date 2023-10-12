@@ -17,5 +17,5 @@ export type TournamentModel = {
     current: number;
     max: number;
   };
-  startDate: Date;
+  startDate: string;
 };
