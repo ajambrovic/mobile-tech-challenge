@@ -1,11 +1,11 @@
 import { NetworkRequestStatus } from '../../store/networkRequestModel';
 import { TournamentsReduxModel } from './tournamentsModel';
 import {
-  EDIT_TOURNAMENT_ACTION,
   LOAD_TOURNAMENTS_DATA_ACTION,
   LOAD_TOURNAMENTS_DATA_FAIL_ACTION,
   LOAD_TOURNAMENTS_DATA_SUCCESS_ACTION,
   LOAD_TOURNAMENTS_LIST_END_ACTION,
+  UPDATE_TOURNAMENT_ACTION,
 } from './tournamentsActions';
 import { AnyAction } from 'redux';
 import { produce } from 'immer';
@@ -69,7 +69,7 @@ function tournament(
   state = initialState,
   action: AnyAction
 ): TournamentsReduxModel {
-  if (action.type === EDIT_TOURNAMENT_ACTION) {
+  if (action.type === UPDATE_TOURNAMENT_ACTION) {
     return produce(state, (draftState) => {
       const index = draftState.tournaments.findIndex(
         (tournamentData) => tournamentData.id === action.data.id
