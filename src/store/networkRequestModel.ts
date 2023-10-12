@@ -1,5 +1,4 @@
 export enum NetworkRequestStatus {
-  Unknown,
   InProgress,
   Success,
   Fail,
