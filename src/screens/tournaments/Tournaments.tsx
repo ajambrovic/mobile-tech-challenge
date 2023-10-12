@@ -71,7 +71,6 @@ const TournamentsData = () => {
 
   function fetchMoreData() {
     if (!isListEnd && loading !== NetworkRequestStatus.InProgress) {
-      console.log(`${loading}?_page=${page}`);
       setPage(page + 1);
     }
   }

@@ -32,4 +32,4 @@ export const LOAD_TOURNAMENTS_DATA_ACTION = 'tournaments/LOAD_DATA';
 export const LOAD_TOURNAMENTS_DATA_SUCCESS_ACTION =
   'tournaments/LOAD_DATA_SUCCESS';
 export const LOAD_TOURNAMENTS_DATA_FAIL_ACTION = 'tournaments/LOAD_DATA_FAIL';
-export const LOAD_TOURNAMENTS_LIST_END_ACTION = 'tournaments/LOAD_DATA_FAIL';
+export const LOAD_TOURNAMENTS_LIST_END_ACTION = 'tournaments/LOAD_LIST_END';

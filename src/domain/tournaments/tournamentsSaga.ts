@@ -29,7 +29,6 @@ function* doFetchTournamentsSaga({
     }
     yield* put(loadTournamentsListEndAction());
   } catch (error) {
-    console.error(error);
     yield* put(loadTournamentsDataFailAction());
   }
 }
