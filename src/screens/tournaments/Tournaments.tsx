@@ -14,8 +14,8 @@ import { NetworkRequestStatus } from '../../store/networkRequestModel';
 import { TournamentModel } from '../../domain/tournaments/tournamentsModel';
 import { useDispatch } from 'react-redux';
 import { loadTournamentsDataAction } from '../../domain/tournaments/tournamentsActions';
-import ActivityIndicator from '../../components/ActivityIndicator';
-import Button from '../../components/Button';
+import { TournamentsInitialLoader } from './components/TournamentsInitialLoader';
+import { TournamentsLoadingFailed } from './components/TournamentsLoadingFailed';
 
 const Tournaments = () => {
   return (
@@ -51,21 +51,11 @@ const TournamentsData = () => {
   }, [dispatch, page]);
 
   if (initialLoad && !userPulledToRefresh) {
-    return (
-      <>
-        <ActivityIndicator size={'large'} />
-        <Input>Loading tournaments ...</Input>
-      </>
-    );
+    return <TournamentsInitialLoader />;
   }
 
   if (loading === NetworkRequestStatus.Fail) {
-    return (
-      <>
-        <Input>Something went wrong.</Input>
-        <Button onPress={retryFetchData}>Retry</Button>
-      </>
-    );
+    return <TournamentsLoadingFailed retryFetchData={retryFetchData} />;
   }
 
   if (tournamentsData.length === 0 && !userPulledToRefresh) {
