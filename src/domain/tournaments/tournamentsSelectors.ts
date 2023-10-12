@@ -1,13 +1,17 @@
 import { RootState } from '../../reducers';
 
+export const getTournamentsInitialLoad = (state: RootState) => {
+  return getTournaments(state).initialLoad;
+};
+
 export const getTournamentsNetworkStatus = (state: RootState) => {
-  return getTournamentsData(state).networkRequestStatus;
+  return getTournaments(state).networkRequestStatus;
 };
 
-export const getTournamentsNumber = (state: RootState) => {
-  return getTournamentsData(state).tournaments.length;
+export const getTournamentsData = (state: RootState) => {
+  return getTournaments(state).tournaments;
 };
 
-const getTournamentsData = (state: RootState) => {
+const getTournaments = (state: RootState) => {
   return state.tournaments;
 };

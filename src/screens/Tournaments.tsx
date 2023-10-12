@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, FlatList } from 'react-native';
 import Container from '../components/Container';
 import H4 from '../components/H4';
 import Input from '../components/Input';
 import {
+  getTournamentsData,
+  getTournamentsInitialLoad,
   getTournamentsNetworkStatus,
-  getTournamentsNumber,
 } from '../domain/tournaments/tournamentsSelectors';
 import { useTypedSelector } from '../store';
 import { NetworkRequestStatus } from '../store/networkRequestModel';
+import { TournamentModel } from '../domain/tournaments/tournamentsModel';
+import { useDispatch } from 'react-redux';
+import { fetchTournamentsByPage } from '../domain/tournaments/tournamentsReducers';
 
 const Tournaments = () => {
   return (
@@ -20,14 +24,22 @@ const Tournaments = () => {
 };
 
 const TournamentsData = () => {
+  const [page, _setPage] = useState(1);
   const loading = useTypedSelector((state) =>
     getTournamentsNetworkStatus(state)
   );
-  const tournamentsNumber = useTypedSelector((state) =>
-    getTournamentsNumber(state)
+  const initialLoad = useTypedSelector((state) =>
+    getTournamentsInitialLoad(state)
   );
+  const tournamentsData = useTypedSelector((state) =>
+    getTournamentsData(state)
+  );
+  const dispatch = useDispatch();
+  useEffect(() => {
+    fetchTournamentsByPage(page)(dispatch);
+  }, [dispatch, page]);
 
-  if (loading === NetworkRequestStatus.InProgress) {
+  if (initialLoad) {
     return (
       <>
         <ActivityIndicator />
@@ -40,11 +52,24 @@ const TournamentsData = () => {
     return <Input>Something went wrong.</Input>;
   }
 
-  if (tournamentsNumber === 0) {
+  if (tournamentsData.length === 0) {
     return <Input> No tournaments found.</Input>;
   }
 
-  return <FlatList data={[]} renderItem={() => <></>} />;
+  return (
+    <FlatList
+      data={tournamentsData}
+      renderItem={(tournament) => <Input>{tournament.index}</Input>}
+      keyExtractor={keyExtractor}
+      initialNumToRender={NUMBER_OF_TOURNAMENTS_TO_FETCH}
+    />
+  );
 };
+
+const NUMBER_OF_TOURNAMENTS_TO_FETCH = 10;
+
+function keyExtractor(item: TournamentModel) {
+  return item.id;
+}
 
 export default Tournaments;

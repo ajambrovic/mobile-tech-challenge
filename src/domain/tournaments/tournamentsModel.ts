@@ -1,10 +1,13 @@
 import { NetworkRequestModel } from '../../store/networkRequestModel';
 
-export type TournamentsModel = NetworkRequestModel & {
-  tournaments: TournamentModel[];
+export type TournamentsServerModel = TournamentModel[];
+
+export type TournamentsReduxModel = NetworkRequestModel & {
+  tournaments: TournamentsServerModel;
+  initialLoad: boolean;
 };
 
-type TournamentModel = {
+export type TournamentModel = {
   id: string;
   name: string;
   organizer: string;
