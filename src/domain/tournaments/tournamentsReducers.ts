@@ -23,6 +23,7 @@ export default function tournaments(
       if (action.payload === 1) {
         return {
           ...state,
+          tournaments: [],
           initialLoad: true,
           listEnd: false,
         };
