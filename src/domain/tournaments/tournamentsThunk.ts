@@ -11,7 +11,7 @@ const FETCH_BASE_URL = 'http://localhost:4000/tournaments';
 
 export const fetchTournamentsByPage =
   (currentPage: number) => async (dispatch: Dispatch) => {
-    dispatch(loadTournamentsDataAction());
+    dispatch(loadTournamentsDataAction(currentPage));
     try {
       const response = await fetch(`${FETCH_BASE_URL}?_page=${currentPage}`);
       const tournamentsData: TournamentsServerModel = await response.json();
