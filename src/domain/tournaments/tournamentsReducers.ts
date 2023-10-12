@@ -1,22 +1,17 @@
-import { Dispatch } from 'redux';
 import { NetworkRequestStatus } from '../../store/networkRequestModel';
-import {
-  TournamentsReduxModel,
-  TournamentsServerModel,
-} from './tournamentsModel';
+import { TournamentsReduxModel } from './tournamentsModel';
 import {
   LOAD_TOURNAMENTS_DATA_ACTION,
   LOAD_TOURNAMENTS_DATA_FAIL_ACTION,
   LOAD_TOURNAMENTS_DATA_SUCCESS_ACTION,
-  loadTournamentsDataAction,
-  loadTournamentsDataFailAction,
-  loadTournamentsDataSuccessAction,
+  LOAD_TOURNAMENTS_LIST_END_ACTION,
 } from './tournamentsActions';
 
 const initialState: TournamentsReduxModel = {
   networkRequestStatus: NetworkRequestStatus.InProgress,
   initialLoad: false,
   tournaments: [],
+  listEnd: false,
 };
 
 export default function tournaments(
@@ -29,6 +24,7 @@ export default function tournaments(
         return {
           ...state,
           initialLoad: true,
+          listEnd: false,
         };
       } else {
         return {
@@ -45,6 +41,14 @@ export default function tournaments(
         initialLoad: false,
       };
 
+    case LOAD_TOURNAMENTS_LIST_END_ACTION:
+      return {
+        ...state,
+        networkRequestStatus: NetworkRequestStatus.Success,
+        initialLoad: false,
+        listEnd: true,
+      };
+
     case LOAD_TOURNAMENTS_DATA_FAIL_ACTION:
       return {
         ...state,
@@ -56,19 +60,3 @@ export default function tournaments(
       return state;
   }
 }
-
-const FETCH_BASE_URL = 'http://localhost:4000/tournaments';
-
-export const fetchTournamentsByPage =
-  (currentPage: number) => async (dispatch: Dispatch) => {
-    dispatch(loadTournamentsDataAction());
-    try {
-      const response = await fetch(`${FETCH_BASE_URL}?_page=${currentPage}`);
-      const json: TournamentsServerModel = await response.json();
-      dispatch(loadTournamentsDataSuccessAction(json));
-      return json;
-    } catch (error) {
-      console.error(error);
-      dispatch(loadTournamentsDataFailAction());
-    }
-  };

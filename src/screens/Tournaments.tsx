@@ -4,6 +4,7 @@ import Container from '../components/Container';
 import H4 from '../components/H4';
 import Input from '../components/Input';
 import {
+  getIsListEnd,
   getTournamentsData,
   getTournamentsInitialLoad,
   getTournamentsNetworkStatus,
@@ -12,7 +13,7 @@ import { useTypedSelector } from '../store';
 import { NetworkRequestStatus } from '../store/networkRequestModel';
 import { TournamentModel } from '../domain/tournaments/tournamentsModel';
 import { useDispatch } from 'react-redux';
-import { fetchTournamentsByPage } from '../domain/tournaments/tournamentsReducers';
+import { fetchTournamentsByPage } from '../domain/tournaments/tournamentsThunk';
 
 const Tournaments = () => {
   return (
@@ -24,7 +25,7 @@ const Tournaments = () => {
 };
 
 const TournamentsData = () => {
-  const [page, _setPage] = useState(1);
+  const [page, setPage] = useState(1);
   const loading = useTypedSelector((state) =>
     getTournamentsNetworkStatus(state)
   );
@@ -34,6 +35,7 @@ const TournamentsData = () => {
   const tournamentsData = useTypedSelector((state) =>
     getTournamentsData(state)
   );
+  const isListEnd = useTypedSelector((state) => getIsListEnd(state));
   const dispatch = useDispatch();
   useEffect(() => {
     fetchTournamentsByPage(page)(dispatch);
@@ -62,8 +64,16 @@ const TournamentsData = () => {
       renderItem={(tournament) => <Input>{tournament.index}</Input>}
       keyExtractor={keyExtractor}
       initialNumToRender={NUMBER_OF_TOURNAMENTS_TO_FETCH}
+      onEndReachedThreshold={0.9}
+      onEndReached={fetchMoreData}
     />
   );
+
+  function fetchMoreData() {
+    if (!isListEnd && loading !== NetworkRequestStatus.InProgress) {
+      setPage(page + 1);
+    }
+  }
 };
 
 const NUMBER_OF_TOURNAMENTS_TO_FETCH = 10;

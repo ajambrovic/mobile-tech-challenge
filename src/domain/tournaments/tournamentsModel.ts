@@ -5,6 +5,7 @@ export type TournamentsServerModel = TournamentModel[];
 export type TournamentsReduxModel = NetworkRequestModel & {
   tournaments: TournamentsServerModel;
   initialLoad: boolean;
+  listEnd: boolean;
 };
 
 export type TournamentModel = {

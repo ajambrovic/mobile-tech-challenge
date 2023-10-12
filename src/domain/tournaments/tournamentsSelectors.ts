@@ -12,6 +12,10 @@ export const getTournamentsData = (state: RootState) => {
   return getTournaments(state).tournaments;
 };
 
+export const getIsListEnd = (state: RootState) => {
+  return getTournaments(state).listEnd;
+};
+
 const getTournaments = (state: RootState) => {
   return state.tournaments;
 };
