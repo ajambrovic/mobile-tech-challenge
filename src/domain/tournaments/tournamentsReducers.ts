@@ -18,6 +18,7 @@ const initialState: TournamentsReduxModel = {
   initialLoad: false,
   tournaments: [],
   listEnd: false,
+  page: 1,
 };
 
 export default function tournaments(
@@ -26,7 +27,7 @@ export default function tournaments(
 ): TournamentsReduxModel {
   switch (action.type) {
     case LOAD_TOURNAMENTS_DATA_ACTION:
-      if (action.payload === 1) {
+      if (action.payload.page === 1) {
         return {
           ...state,
           tournaments: [],

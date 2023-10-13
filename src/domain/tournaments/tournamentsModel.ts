@@ -6,6 +6,7 @@ export type TournamentsReduxModel = NetworkRequestModel & {
   tournaments: TournamentsServerModel;
   initialLoad: boolean;
   listEnd: boolean;
+  page: number;
 };
 
 export type TournamentModel = {

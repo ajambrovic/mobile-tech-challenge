@@ -1,10 +1,13 @@
 import { AnyAction } from 'redux';
 import { TournamentModel, TournamentsServerModel } from './tournamentsModel';
 
-export function loadTournamentsDataAction(page = 1): AnyAction {
+export function loadTournamentsDataAction(
+  page: number,
+  search = ''
+): AnyAction {
   return {
     type: LOAD_TOURNAMENTS_DATA_ACTION,
-    payload: page,
+    payload: { page, search },
   };
 }
 

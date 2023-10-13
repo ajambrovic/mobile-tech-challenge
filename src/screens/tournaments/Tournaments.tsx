@@ -18,21 +18,29 @@ import { TournamentsLoadingFailed } from './components/TournamentsLoadingFailed'
 import { Tournament } from './components/Tournament';
 import H6 from '../../components/H6';
 import { AddTournament } from './components/AddTournament';
+import { Search } from './components/Search';
 
 const Tournaments = () => {
+  const [page, setPage] = useState(1);
   return (
     <>
       <Container>
+        <Search />
         <H4>Faceit Tournaments</H4>
-        <TournamentsData />
+        <TournamentsData page={page} setPage={setPage} />
       </Container>
       <AddTournament />
     </>
   );
 };
 
-const TournamentsData = () => {
-  const [page, setPage] = useState(1);
+const TournamentsData = ({
+  page,
+  setPage,
+}: {
+  page: number;
+  setPage: React.Dispatch<React.SetStateAction<number>>;
+}) => {
   const [userPulledToRefresh, setUserPulledToRefresh] = useState(false);
   const loading = useTypedSelector((state) =>
     getTournamentsNetworkStatus(state)
