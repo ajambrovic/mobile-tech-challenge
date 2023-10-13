@@ -1,8 +1,9 @@
 import React from 'react';
-import { TournamentModel } from '../../../domain/tournaments/tournamentsModel';
-import { View, Text } from 'react-native';
-import { EditTournament } from './EditTournament';
+
+import { Text, View } from 'react-native';
+import { TournamentModel } from 'src/domain/tournaments/tournamentsModel';
 import { DeleteTournament } from './DeleteTournament';
+import { EditTournament } from './EditTournament';
 import { TournamentStyle } from './Tournament.style';
 
 export const Tournament = ({

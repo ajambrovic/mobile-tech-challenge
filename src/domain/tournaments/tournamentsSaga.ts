@@ -1,19 +1,18 @@
+import { API_TOURNAMENTS_URL } from 'src/constants/api';
+import { call, put, select, takeEvery } from 'typed-redux-saga';
 import {
-  loadTournamentsListEndAction,
-  loadTournamentsDataFailAction,
-  loadTournamentsDataSuccessAction,
-  updateTournamentAction,
-  removeTournamentAction,
-  revertTournamentDeletionAction,
-  addTournamentAction,
   TOURNAMENTS_ACTIONS,
   TOURNAMENT_ACTIONS,
+  addTournamentAction,
+  loadTournamentsDataFailAction,
+  loadTournamentsDataSuccessAction,
+  loadTournamentsListEndAction,
+  removeTournamentAction,
+  revertTournamentDeletionAction,
+  updateTournamentAction,
 } from './tournamentsActions';
 import { TournamentModel, TournamentsServerModel } from './tournamentsModel';
-import { call, put, select, takeEvery } from 'typed-redux-saga';
 import { getTournament, getTournamentName } from './tournamentsSelectors';
-
-const FETCH_BASE_URL = 'http://localhost:4000/tournaments';
 
 export function* fetchTournamentsSaga() {
   yield* takeEvery(TOURNAMENTS_ACTIONS.load, doFetchTournamentsSaga);
@@ -40,7 +39,7 @@ function* doFetchTournamentsSaga({
   try {
     const response = yield* call(
       fetch,
-      `${FETCH_BASE_URL}?_page=${payload.page}&q=${payload.searchQuery}`
+      `${API_TOURNAMENTS_URL}?_page=${payload.page}&q=${payload.searchQuery}`
     );
     const tournamentsData: TournamentsServerModel = yield response.json();
     if (tournamentsData.length > 0) {
@@ -72,7 +71,7 @@ function* doEditTournamentSaga({
 
   try {
     yield* put(updateTournamentAction(data));
-    yield* call(fetch, `${FETCH_BASE_URL}?${data.id}`, {
+    yield* call(fetch, `${API_TOURNAMENTS_URL}?${data.id}`, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -100,7 +99,7 @@ function* doDeleteTournamentSaga({
 
   try {
     yield* put(removeTournamentAction(data));
-    yield* call(fetch, `${FETCH_BASE_URL}?${data}`, {
+    yield* call(fetch, `${API_TOURNAMENTS_URL}?${data}`, {
       method: 'DELETE',
     });
   } catch (error) {
@@ -115,7 +114,7 @@ function* doCreateTournamentSaga({
   data: TournamentModel['name'];
 }) {
   try {
-    const response = yield* call(fetch, `${FETCH_BASE_URL}`, {
+    const response = yield* call(fetch, `${API_TOURNAMENTS_URL}`, {
       headers: {
         Accept: 'application/json',
         'Content-Type': 'application/json',

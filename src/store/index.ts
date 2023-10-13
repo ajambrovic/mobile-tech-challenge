@@ -1,14 +1,14 @@
 import { TypedUseSelectorHook, useSelector } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import rootReducer, { RootState } from '../reducers';
+import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import { spawn } from 'typed-redux-saga';
 import {
   createTournamentSaga,
   deleteTournamentSaga,
   editTournamentSaga,
   fetchTournamentsSaga,
-} from '../domain/tournaments/tournamentsSaga';
+} from 'src/domain/tournaments/tournamentsSaga';
+import rootReducer, { RootState } from 'src/reducers';
+import { spawn } from 'typed-redux-saga';
 
 function* rootSaga() {
   yield* spawn(fetchTournamentsSaga);

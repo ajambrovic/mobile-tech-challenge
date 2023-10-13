@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Alert, Modal, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import Button from '../../../components/Button';
-import Input from '../../../components/Input';
-import { editTournamentAction } from '../../../domain/tournaments/tournamentsActions';
-import { TournamentModel } from '../../../domain/tournaments/tournamentsModel';
+import Button from 'src/components/Button';
+import Input from 'src/components/Input';
+import { editTournamentAction } from 'src/domain/tournaments/tournamentsActions';
+import { TournamentModel } from 'src/domain/tournaments/tournamentsModel';
 import { TournamentModalStyle } from './TournamentModalStyle.style';
 
 export const EditTournament = ({

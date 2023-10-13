@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from '../../../components/Button';
-import H6 from '../../../components/H6';
+import Button from 'src/components/Button';
+import H6 from 'src/components/H6';
 
 export const TournamentsLoadingFailed = ({
   retryFetchData,

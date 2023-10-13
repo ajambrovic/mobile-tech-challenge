@@ -1,5 +1,5 @@
 import { AnyAction } from 'redux';
-import { TournamentModel, TournamentsServerModel } from './tournamentsModel';
+import { TournamentsServerModel, TournamentModel } from './tournamentsModel';
 
 export function updateTournamentsDataRetrievalAction(
   page: number,

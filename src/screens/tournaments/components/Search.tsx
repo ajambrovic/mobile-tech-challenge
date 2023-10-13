@@ -1,10 +1,10 @@
 import { SearchBar } from '@rneui/themed';
+import debounce from 'lodash.debounce';
 import React, { useMemo, useState } from 'react';
 import { StyleSheet, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { loadTournamentsDataAction } from '../../../domain/tournaments/tournamentsActions';
-import debounce from 'lodash.debounce';
-import { INITIAL_TOURNAMENTS_PAGE } from '../../../constants/api';
+import { INITIAL_TOURNAMENTS_PAGE } from 'src/constants/api';
+import { loadTournamentsDataAction } from 'src/domain/tournaments/tournamentsActions';
 
 export const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');

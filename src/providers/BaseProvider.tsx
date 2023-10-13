@@ -1,12 +1,12 @@
 import React from 'react';
-import { Provider } from 'react-redux';
-import store from '../store';
-import Tournaments from '../screens/tournaments/Tournaments';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import Container from '../components/Container';
-import H4 from '../components/H4';
-import { AddTournament } from '../screens/tournaments/components/AddTournament';
-import { Search } from '../screens/tournaments/components/Search';
+import { Provider } from 'react-redux';
+import Container from 'src/components/Container';
+import H4 from 'src/components/H4';
+import Tournaments from 'src/screens/tournaments/Tournaments';
+import { AddTournament } from 'src/screens/tournaments/components/AddTournament';
+import { Search } from 'src/screens/tournaments/components/Search';
+import store from 'src/store';
 
 const BaseProvider = () => {
   return (

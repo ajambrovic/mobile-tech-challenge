@@ -1,4 +1,4 @@
-import { NetworkRequestModel } from '../networkRequest/networkRequestModel';
+import { NetworkRequestModel } from 'src/domain/networkRequest/networkRequestModel';
 
 export type TournamentsServerModel = TournamentModel[];
 

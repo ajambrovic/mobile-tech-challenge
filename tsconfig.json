@@ -4,6 +4,8 @@
     "types": [
       "node",
       "styled-components-react-native"
-    ]
+    ],
+    "baseUrl": ".",
+    "importHelpers": true
   }
 }

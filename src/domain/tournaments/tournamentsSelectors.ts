@@ -1,4 +1,4 @@
-import { RootState } from '../../reducers';
+import { RootState } from 'src/reducers';
 
 export const getCurrentTournamentSearchQuery = (state: RootState) => {
   return getTournaments(state).searchQuery;

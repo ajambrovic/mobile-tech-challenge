@@ -1,5 +1,5 @@
+import theme from 'src/theme';
 import styled from 'styled-components/native';
-import theme from '../theme';
 
 const H4 = styled.Text`
   ${theme.typography.h4};

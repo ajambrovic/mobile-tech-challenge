@@ -1,10 +1,10 @@
+import { FAB } from '@rneui/base';
 import React, { useState } from 'react';
-import { View, Modal, Alert, StyleSheet } from 'react-native';
-import Button from '../../../components/Button';
+import { Alert, Modal, StyleSheet, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { FAB } from '@rneui/themed';
-import Input from '../../../components/Input';
-import { createTournamentAction } from '../../../domain/tournaments/tournamentsActions';
+import Button from 'src/components/Button';
+import Input from 'src/components/Input';
+import { createTournamentAction } from 'src/domain/tournaments/tournamentsActions';
 import { TournamentModalStyle } from './TournamentModalStyle.style';
 
 export const AddTournament = () => {

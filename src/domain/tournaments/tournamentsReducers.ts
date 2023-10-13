@@ -1,9 +1,9 @@
-import { NetworkRequestStatus } from '../networkRequest/networkRequestModel';
-import { TournamentsReduxModel } from './tournamentsModel';
-import { TOURNAMENTS_ACTIONS, TOURNAMENT_ACTIONS } from './tournamentsActions';
-import { AnyAction } from 'redux';
 import { produce } from 'immer';
-import { INITIAL_TOURNAMENTS_PAGE } from '../../constants/api';
+import { AnyAction } from 'redux';
+import { INITIAL_TOURNAMENTS_PAGE } from 'src/constants/api';
+import { NetworkRequestStatus } from '../networkRequest/networkRequestModel';
+import { TOURNAMENTS_ACTIONS, TOURNAMENT_ACTIONS } from './tournamentsActions';
+import { TournamentsReduxModel } from './tournamentsModel';
 
 const initialState: TournamentsReduxModel = {
   networkRequestStatus: NetworkRequestStatus.InProgress,

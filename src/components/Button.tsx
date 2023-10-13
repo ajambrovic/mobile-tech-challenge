@@ -1,7 +1,7 @@
 import React from 'react';
-import styled from 'styled-components/native';
-import theme from '../theme';
 import { Pressable, PressableProps } from 'react-native';
+import theme from 'src/theme';
+import styled from 'styled-components/native';
 
 const ButtonContent = styled.Text<{ pressed?: boolean }>`
   background: transparent;

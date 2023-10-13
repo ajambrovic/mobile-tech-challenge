@@ -1,5 +1,5 @@
+import theme from 'src/theme';
 import styled from 'styled-components/native';
-import theme from '../theme';
 
 const Input = styled.TextInput`
   background: ${theme.palette.background.base};

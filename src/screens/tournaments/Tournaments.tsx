@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, ListRenderItemInfo, RefreshControl } from 'react-native';
 import { useDispatch } from 'react-redux';
-import H6 from '../../components/H6';
-import { NetworkRequestStatus } from '../../domain/networkRequest/networkRequestModel';
+import H6 from 'src/components/H6';
+import { INITIAL_TOURNAMENTS_PAGE } from 'src/constants/api';
+import { NetworkRequestStatus } from 'src/domain/networkRequest/networkRequestModel';
 import {
   loadTournamentsDataAction,
   updateTournamentsDataRetrievalAction,
-} from '../../domain/tournaments/tournamentsActions';
-import { TournamentModel } from '../../domain/tournaments/tournamentsModel';
+} from 'src/domain/tournaments/tournamentsActions';
+import { TournamentModel } from 'src/domain/tournaments/tournamentsModel';
 import {
   getCurrentTournamentPage,
   getCurrentTournamentSearchQuery,
@@ -15,12 +16,11 @@ import {
   getTournamentsData,
   getTournamentsInitialLoad,
   getTournamentsNetworkStatus,
-} from '../../domain/tournaments/tournamentsSelectors';
-import { useTypedSelector } from '../../store';
+} from 'src/domain/tournaments/tournamentsSelectors';
+import { useTypedSelector } from 'src/store';
 import { Tournament } from './components/Tournament';
 import { TournamentsInitialLoader } from './components/TournamentsInitialLoader';
 import { TournamentsLoadingFailed } from './components/TournamentsLoadingFailed';
-import { INITIAL_TOURNAMENTS_PAGE } from '../../constants/api';
 
 export const Tournaments = () => {
   const [userPulledToRefresh, setUserPulledToRefresh] = useState(false);
