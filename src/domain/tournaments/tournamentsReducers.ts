@@ -8,6 +8,7 @@ import {
   LOAD_TOURNAMENTS_LIST_END_ACTION,
   REMOVE_TOURNAMENT_ACTION,
   REVERT_TOURNAMENT_DELETION_ACTION,
+  UPDATE_TOURNAMENTS_DATA_RETRIEVAL_ACTION,
   UPDATE_TOURNAMENT_ACTION,
 } from './tournamentsActions';
 import { AnyAction } from 'redux';
@@ -19,6 +20,7 @@ const initialState: TournamentsReduxModel = {
   tournaments: [],
   listEnd: false,
   page: 1,
+  searchQuery: '',
 };
 
 export default function tournaments(
@@ -41,10 +43,20 @@ export default function tournaments(
         };
       }
 
+    case UPDATE_TOURNAMENTS_DATA_RETRIEVAL_ACTION: {
+      return {
+        ...state,
+        page: action.data.page,
+        searchQuery: action.data.searchQuery,
+      };
+    }
+
     case LOAD_TOURNAMENTS_DATA_SUCCESS_ACTION:
       return {
         ...state,
-        tournaments: [...state.tournaments, ...action.data],
+        tournaments: [...state.tournaments, ...action.data.tournaments],
+        page: action.data.page,
+        searchQuery: action.data.searchQuery,
         networkRequestStatus: NetworkRequestStatus.Success,
         initialLoad: false,
       };

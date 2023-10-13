@@ -7,6 +7,7 @@ export type TournamentsReduxModel = NetworkRequestModel & {
   initialLoad: boolean;
   listEnd: boolean;
   page: number;
+  searchQuery: string;
 };
 
 export type TournamentModel = {

@@ -37,16 +37,22 @@ function* doFetchTournamentsSaga({
   payload,
 }: {
   type: string;
-  payload: { page: number; search: string };
+  payload: { page: number; searchQuery: string };
 }) {
   try {
     const response = yield* call(
       fetch,
-      `${FETCH_BASE_URL}?_page=${payload.page}`
+      `${FETCH_BASE_URL}?_page=${payload.page}&q=${payload.searchQuery}`
     );
     const tournamentsData: TournamentsServerModel = yield response.json();
     if (tournamentsData.length > 0) {
-      yield* put(loadTournamentsDataSuccessAction(tournamentsData));
+      yield* put(
+        loadTournamentsDataSuccessAction(
+          tournamentsData,
+          payload.page,
+          payload.searchQuery
+        )
+      );
       return;
     }
     yield* put(loadTournamentsListEndAction());

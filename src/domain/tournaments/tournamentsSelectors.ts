@@ -1,5 +1,13 @@
 import { RootState } from '../../reducers';
 
+export const getCurrentTournamentSearchQuery = (state: RootState) => {
+  return getTournaments(state).searchQuery;
+};
+
+export const getCurrentTournamentPage = (state: RootState) => {
+  return getTournaments(state).page;
+};
+
 export const getTournamentName = (state: RootState, id: string) => {
   const tournamentData = getTournament(state, id);
   if (tournamentData) {

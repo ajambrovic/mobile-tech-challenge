@@ -1,22 +1,34 @@
 import { AnyAction } from 'redux';
 import { TournamentModel, TournamentsServerModel } from './tournamentsModel';
 
+export function updateTournamentsDataRetrievalAction(
+  page: number,
+  searchQuery: string
+): AnyAction {
+  return {
+    type: UPDATE_TOURNAMENTS_DATA_RETRIEVAL_ACTION,
+    data: { page, searchQuery },
+  };
+}
+
 export function loadTournamentsDataAction(
   page: number,
-  search = ''
+  searchQuery: string
 ): AnyAction {
   return {
     type: LOAD_TOURNAMENTS_DATA_ACTION,
-    payload: { page, search },
+    payload: { page, searchQuery },
   };
 }
 
 export function loadTournamentsDataSuccessAction(
-  tournaments: TournamentsServerModel
+  tournaments: TournamentsServerModel,
+  page: number,
+  searchQuery: string
 ): AnyAction {
   return {
     type: LOAD_TOURNAMENTS_DATA_SUCCESS_ACTION,
-    data: tournaments,
+    data: { tournaments, page, searchQuery },
   };
 }
 
@@ -92,6 +104,8 @@ export const LOAD_TOURNAMENTS_DATA_SUCCESS_ACTION =
   'tournaments/LOAD_DATA_SUCCESS';
 export const LOAD_TOURNAMENTS_DATA_FAIL_ACTION = 'tournaments/LOAD_DATA_FAIL';
 export const LOAD_TOURNAMENTS_LIST_END_ACTION = 'tournaments/LOAD_LIST_END';
+export const UPDATE_TOURNAMENTS_DATA_RETRIEVAL_ACTION =
+  'tournaments/UPDATE_TOURNAMENTS_DATA__RETRIEVAL_ACTION';
 
 export const EDIT_TOURNAMENT_ACTION = 'tournament/EDIT_TOURNAMENT_ACTION';
 export const UPDATE_TOURNAMENT_ACTION = 'tournament/UPDATE_TOURNAMENT_ACTION';

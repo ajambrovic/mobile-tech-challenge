@@ -3,6 +3,8 @@ import { FlatList, ListRenderItemInfo, RefreshControl } from 'react-native';
 import Container from '../../components/Container';
 import H4 from '../../components/H4';
 import {
+  getCurrentTournamentPage,
+  getCurrentTournamentSearchQuery,
   getIsListEnd,
   getTournamentsData,
   getTournamentsInitialLoad,
@@ -12,7 +14,10 @@ import { useTypedSelector } from '../../store';
 import { NetworkRequestStatus } from '../../store/networkRequestModel';
 import { TournamentModel } from '../../domain/tournaments/tournamentsModel';
 import { useDispatch } from 'react-redux';
-import { loadTournamentsDataAction } from '../../domain/tournaments/tournamentsActions';
+import {
+  loadTournamentsDataAction,
+  updateTournamentsDataRetrievalAction,
+} from '../../domain/tournaments/tournamentsActions';
 import { TournamentsInitialLoader } from './components/TournamentsInitialLoader';
 import { TournamentsLoadingFailed } from './components/TournamentsLoadingFailed';
 import { Tournament } from './components/Tournament';
@@ -21,26 +26,19 @@ import { AddTournament } from './components/AddTournament';
 import { Search } from './components/Search';
 
 const Tournaments = () => {
-  const [page, setPage] = useState(1);
   return (
     <>
       <Container>
         <Search />
         <H4>Faceit Tournaments</H4>
-        <TournamentsData page={page} setPage={setPage} />
+        <TournamentsData />
       </Container>
       <AddTournament />
     </>
   );
 };
 
-const TournamentsData = ({
-  page,
-  setPage,
-}: {
-  page: number;
-  setPage: React.Dispatch<React.SetStateAction<number>>;
-}) => {
+const TournamentsData = () => {
   const [userPulledToRefresh, setUserPulledToRefresh] = useState(false);
   const loading = useTypedSelector((state) =>
     getTournamentsNetworkStatus(state)
@@ -52,12 +50,16 @@ const TournamentsData = ({
     getTournamentsData(state)
   );
   const isListEnd = useTypedSelector((state) => getIsListEnd(state));
+  const page = useTypedSelector((state) => getCurrentTournamentPage(state));
+  const searchQuery = useTypedSelector((state) =>
+    getCurrentTournamentSearchQuery(state)
+  );
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(loadTournamentsDataAction(page));
-  }, [dispatch, page]);
+    dispatch(loadTournamentsDataAction(page, searchQuery));
+  }, [dispatch, page, searchQuery]);
 
   if (initialLoad && !userPulledToRefresh) {
     return <TournamentsInitialLoader />;
@@ -91,18 +93,18 @@ const TournamentsData = ({
 
   function fetchMoreData() {
     if (!isListEnd && loading !== NetworkRequestStatus.InProgress) {
-      setPage(page + 1);
+      dispatch(updateTournamentsDataRetrievalAction(page + 1, searchQuery));
     }
   }
 
   function retryFetchData() {
     setUserPulledToRefresh(false);
-    dispatch(loadTournamentsDataAction(page));
+    dispatch(loadTournamentsDataAction(page, searchQuery));
   }
 
   function onPullToRefresh() {
     setUserPulledToRefresh(true);
-    setPage(1);
+    dispatch(updateTournamentsDataRetrievalAction(1, searchQuery));
   }
 };
 
