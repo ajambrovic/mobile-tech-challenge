@@ -8,6 +8,8 @@ import {
   removeTournamentAction,
   DELETE_TOURNAMENT_ACTION,
   revertTournamentDeletionAction,
+  CREATE_TOURNAMENT_ACTION,
+  addTournamentAction,
 } from './tournamentsActions';
 import { TournamentModel, TournamentsServerModel } from './tournamentsModel';
 import { call, put, select, takeEvery } from 'typed-redux-saga';
@@ -25,6 +27,10 @@ export function* editTournamentSaga() {
 
 export function* deleteTournamentSaga() {
   yield* takeEvery(DELETE_TOURNAMENT_ACTION, doDeleteTournamentSaga);
+}
+
+export function* createTournamentSaga() {
+  yield* takeEvery(CREATE_TOURNAMENT_ACTION, doCreateTournamentSaga);
 }
 
 function* doFetchTournamentsSaga({
@@ -92,5 +98,29 @@ function* doDeleteTournamentSaga({
     });
   } catch (error) {
     yield* put(revertTournamentDeletionAction(currentTournament));
+  }
+}
+
+function* doCreateTournamentSaga({
+  data,
+}: {
+  type: string;
+  data: TournamentModel['name'];
+}) {
+  try {
+    const response = yield* call(fetch, `${FETCH_BASE_URL}`, {
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      method: 'POST',
+      body: JSON.stringify({
+        name: data,
+      }),
+    });
+    const newTournament: TournamentModel = yield response.json();
+    yield* put(addTournamentAction(newTournament));
+  } catch (error) {
+    console.log(error);
   }
 }

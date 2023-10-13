@@ -63,10 +63,24 @@ export function removeTournamentAction(id: TournamentModel['id']): AnyAction {
 export function revertTournamentDeletionAction(tournamentData: {
   tournament: TournamentModel;
   tournamentIndex: number;
-}) {
+}): AnyAction {
   return {
     type: REVERT_TOURNAMENT_DELETION_ACTION,
     data: tournamentData,
+  };
+}
+
+export function createTournamentAction(name: string): AnyAction {
+  return {
+    type: CREATE_TOURNAMENT_ACTION,
+    data: name,
+  };
+}
+
+export function addTournamentAction(data: TournamentModel): AnyAction {
+  return {
+    type: ADD_TOURNAMENT_ACTION,
+    data,
   };
 }
 
@@ -82,3 +96,5 @@ export const DELETE_TOURNAMENT_ACTION = 'tournament/DELETE_TOURNAMENT_ACTION';
 export const REMOVE_TOURNAMENT_ACTION = 'tournament/REMOVE_TOURNAMENT_ACTION';
 export const REVERT_TOURNAMENT_DELETION_ACTION =
   'tournament/REVERT_TOURNAMENT_DELETION_ACTION';
+export const CREATE_TOURNAMENT_ACTION = 'tournament/CREATE_TOURNAMENT_ACTION';
+export const ADD_TOURNAMENT_ACTION = 'tournament/ADD_TOURNAMENT_ACTION';

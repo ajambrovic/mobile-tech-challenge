@@ -1,21 +1,25 @@
 import React, { useState } from 'react';
 import { View, StyleSheet, Modal } from 'react-native';
 import Button from '../../../components/Button';
-// import { useDispatch } from 'react-redux';
-import H6 from '../../../components/H6';
+import { useDispatch } from 'react-redux';
 import { FAB } from '@rneui/themed';
+import Input from '../../../components/Input';
+import { createTournamentAction } from '../../../domain/tournaments/tournamentsActions';
 
 export const AddTournament = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  //  const dispatch = useDispatch();
+  const [name, onChangeText] = useState('');
+  const dispatch = useDispatch();
 
   return (
     <>
       <FAB
         visible={true}
-        icon={{ name: 'add' }}
+        icon={{ name: 'add', color: 'white' }}
         onPress={openModal}
         color="green"
+        placement="right"
+        style={{ marginBottom: '10%' }}
       />
       <Modal
         animationType="slide"
@@ -25,9 +29,9 @@ export const AddTournament = () => {
       >
         <View style={stylesModal.centeredView}>
           <View style={stylesModal.modalView}>
-            <H6>Do you really want to delete this tournament?</H6>
+            <Input onChangeText={onChangeText} value={name} />
             <Button onPress={closeModal}>Cancel</Button>
-            <Button onPress={deleteTournament}>Confirm</Button>
+            <Button onPress={createTournament}>OK</Button>
           </View>
         </View>
       </Modal>
@@ -42,8 +46,8 @@ export const AddTournament = () => {
     setModalVisible(false);
   }
 
-  function deleteTournament() {
-    // dispatch(deleteTournamentAction(id));
+  function createTournament() {
+    dispatch(createTournamentAction(name));
     closeModal();
   }
 };

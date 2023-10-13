@@ -1,6 +1,7 @@
 import { NetworkRequestStatus } from '../../store/networkRequestModel';
 import { TournamentsReduxModel } from './tournamentsModel';
 import {
+  ADD_TOURNAMENT_ACTION,
   LOAD_TOURNAMENTS_DATA_ACTION,
   LOAD_TOURNAMENTS_DATA_FAIL_ACTION,
   LOAD_TOURNAMENTS_DATA_SUCCESS_ACTION,
@@ -99,6 +100,11 @@ function tournament(
           0,
           action.data.tournament
         );
+      });
+
+    case ADD_TOURNAMENT_ACTION:
+      return produce(state, (draftState) => {
+        draftState.tournaments.splice(0, 0, action.data);
       });
 
     default:

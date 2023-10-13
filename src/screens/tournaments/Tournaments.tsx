@@ -21,11 +21,13 @@ import { AddTournament } from './components/AddTournament';
 
 const Tournaments = () => {
   return (
-    <Container>
-      <H4>Faceit Tournaments</H4>
-      <TournamentsData />
+    <>
+      <Container>
+        <H4>Faceit Tournaments</H4>
+        <TournamentsData />
+      </Container>
       <AddTournament />
-    </Container>
+    </>
   );
 };
 
