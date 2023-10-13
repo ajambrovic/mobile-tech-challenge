@@ -45,7 +45,9 @@ export const Tournaments = () => {
     dispatch(loadTournamentsDataAction(page, searchQuery));
   }, [dispatch, page, searchQuery]);
 
-  if (initialLoad && !userPulledToRefresh) {
+  const weDidNotClearTheDataWithPullOnRefreshOnInitialLoad =
+    initialLoad && !userPulledToRefresh;
+  if (weDidNotClearTheDataWithPullOnRefreshOnInitialLoad) {
     return <TournamentsInitialLoader />;
   }
 
@@ -53,7 +55,9 @@ export const Tournaments = () => {
     return <TournamentsLoadingFailed retryFetchData={retryFetchData} />;
   }
 
-  if (tournamentsData.length === 0 && !userPulledToRefresh) {
+  const weDidNotClearTheDataWithPullOnRefresh =
+    tournamentsData.length === 0 && !userPulledToRefresh;
+  if (weDidNotClearTheDataWithPullOnRefresh) {
     return (
       <>
         <H6> No tournaments found.</H6>
@@ -81,7 +85,9 @@ export const Tournaments = () => {
   );
 
   function fetchMoreData() {
-    if (!isListEnd && loading !== NetworkRequestStatus.InProgress) {
+    const thereAreMoreItemsToLoadAndWeAreNotAlreadyInTheFetchProcess =
+      !isListEnd && loading !== NetworkRequestStatus.InProgress;
+    if (thereAreMoreItemsToLoadAndWeAreNotAlreadyInTheFetchProcess) {
       dispatch(updateTournamentsDataRetrievalAction(page + 1, searchQuery));
     }
   }

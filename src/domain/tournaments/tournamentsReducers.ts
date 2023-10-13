@@ -3,13 +3,14 @@ import { TournamentsReduxModel } from './tournamentsModel';
 import { TOURNAMENTS_ACTIONS, TOURNAMENT_ACTIONS } from './tournamentsActions';
 import { AnyAction } from 'redux';
 import { produce } from 'immer';
+import { INITIAL_TOURNAMENTS_PAGE } from '../../constants/api';
 
 const initialState: TournamentsReduxModel = {
   networkRequestStatus: NetworkRequestStatus.InProgress,
   initialLoad: false,
   tournaments: [],
   listEnd: false,
-  page: 1,
+  page: INITIAL_TOURNAMENTS_PAGE,
   searchQuery: '',
 };
 
@@ -19,7 +20,7 @@ export default function tournaments(
 ): TournamentsReduxModel {
   switch (action.type) {
     case TOURNAMENTS_ACTIONS.load:
-      if (action.payload.page === 1) {
+      if (action.payload.page === INITIAL_TOURNAMENTS_PAGE) {
         return {
           ...state,
           tournaments: [],
