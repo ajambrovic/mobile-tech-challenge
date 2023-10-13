@@ -2,8 +2,11 @@ import { NetworkRequestModel } from '../networkRequest/networkRequestModel';
 
 export type TournamentsServerModel = TournamentModel[];
 
-export type TournamentsReduxModel = NetworkRequestModel & {
+export type TournamentsReduxModel = TournamentsLocalModal & {
   tournaments: TournamentsServerModel;
+};
+
+export type TournamentsLocalModal = NetworkRequestModel & {
   initialLoad: boolean;
   listEnd: boolean;
   page: number;

@@ -101,7 +101,7 @@ export function addTournamentAction(data: TournamentModel): AnyAction {
 
 export const TOURNAMENTS_ACTIONS = {
   load: 'tournaments/LOAD_DATA',
-  success: 'tournaments/LOAD_SUCCESS',
+  success: 'tournaments/LOAD_DATA_SUCCESS',
   fail: 'tournaments/LOAD_DATA_FAIL',
   listEnd: 'tournaments/LOAD_LIST_END',
   updateDataRetrieval: 'tournaments/UPDATE_DATA_RETRIEVAL',

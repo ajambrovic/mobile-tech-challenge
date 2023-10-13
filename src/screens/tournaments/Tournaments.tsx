@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, ListRenderItemInfo, RefreshControl } from 'react-native';
-import Container from '../../components/Container';
-import H4 from '../../components/H4';
+import { useDispatch } from 'react-redux';
+import H6 from '../../components/H6';
+import { NetworkRequestStatus } from '../../domain/networkRequest/networkRequestModel';
+import {
+  loadTournamentsDataAction,
+  updateTournamentsDataRetrievalAction,
+} from '../../domain/tournaments/tournamentsActions';
+import { TournamentModel } from '../../domain/tournaments/tournamentsModel';
 import {
   getCurrentTournamentPage,
   getCurrentTournamentSearchQuery,
@@ -11,34 +17,12 @@ import {
   getTournamentsNetworkStatus,
 } from '../../domain/tournaments/tournamentsSelectors';
 import { useTypedSelector } from '../../store';
-import { NetworkRequestStatus } from '../../domain/networkRequest/networkRequestModel';
-import { TournamentModel } from '../../domain/tournaments/tournamentsModel';
-import { useDispatch } from 'react-redux';
-import {
-  loadTournamentsDataAction,
-  updateTournamentsDataRetrievalAction,
-} from '../../domain/tournaments/tournamentsActions';
+import { Tournament } from './components/Tournament';
 import { TournamentsInitialLoader } from './components/TournamentsInitialLoader';
 import { TournamentsLoadingFailed } from './components/TournamentsLoadingFailed';
-import { Tournament } from './components/Tournament';
-import H6 from '../../components/H6';
-import { AddTournament } from './components/AddTournament';
-import { Search } from './components/Search';
+import { INITIAL_TOURNAMENTS_PAGE } from '../../constants/api';
 
-const Tournaments = () => {
-  return (
-    <>
-      <Container>
-        <Search />
-        <H4>Faceit Tournaments</H4>
-        <TournamentsData />
-      </Container>
-      <AddTournament />
-    </>
-  );
-};
-
-const TournamentsData = () => {
+export const Tournaments = () => {
   const [userPulledToRefresh, setUserPulledToRefresh] = useState(false);
   const loading = useTypedSelector((state) =>
     getTournamentsNetworkStatus(state)
@@ -109,7 +93,12 @@ const TournamentsData = () => {
 
   function onPullToRefresh() {
     setUserPulledToRefresh(true);
-    dispatch(updateTournamentsDataRetrievalAction(1, searchQuery));
+    dispatch(
+      updateTournamentsDataRetrievalAction(
+        INITIAL_TOURNAMENTS_PAGE,
+        searchQuery
+      )
+    );
   }
 };
 

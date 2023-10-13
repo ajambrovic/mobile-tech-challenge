@@ -4,6 +4,7 @@ import { StyleSheet, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { loadTournamentsDataAction } from '../../../domain/tournaments/tournamentsActions';
 import debounce from 'lodash.debounce';
+import { INITIAL_TOURNAMENTS_PAGE } from '../../../constants/api';
 
 export const Search = () => {
   const [searchQuery, setSearchQuery] = useState('');
@@ -12,7 +13,9 @@ export const Search = () => {
   const debounceSearching = useMemo(
     () =>
       debounce((searchItem: string) => {
-        dispatch(loadTournamentsDataAction(1, searchItem));
+        dispatch(
+          loadTournamentsDataAction(INITIAL_TOURNAMENTS_PAGE, searchItem)
+        );
       }, 500),
     [dispatch]
   );
