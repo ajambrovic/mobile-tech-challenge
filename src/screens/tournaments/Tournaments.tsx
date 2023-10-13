@@ -17,12 +17,14 @@ import { TournamentsInitialLoader } from './components/TournamentsInitialLoader'
 import { TournamentsLoadingFailed } from './components/TournamentsLoadingFailed';
 import { Tournament } from './components/Tournament';
 import H6 from '../../components/H6';
+import { AddTournament } from './components/AddTournament';
 
 const Tournaments = () => {
   return (
     <Container>
       <H4>Faceit Tournaments</H4>
       <TournamentsData />
+      <AddTournament />
     </Container>
   );
 };
