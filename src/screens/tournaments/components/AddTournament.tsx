@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Modal } from 'react-native';
+import { View, StyleSheet, Modal, Alert } from 'react-native';
 import Button from '../../../components/Button';
 import { useDispatch } from 'react-redux';
 import { FAB } from '@rneui/themed';
@@ -8,7 +8,7 @@ import { createTournamentAction } from '../../../domain/tournaments/tournamentsA
 
 export const AddTournament = () => {
   const [modalVisible, setModalVisible] = useState(false);
-  const [name, onChangeText] = useState('');
+  const [name, updateTournamentName] = useState('');
   const dispatch = useDispatch();
 
   return (
@@ -29,7 +29,7 @@ export const AddTournament = () => {
       >
         <View style={stylesModal.centeredView}>
           <View style={stylesModal.modalView}>
-            <Input onChangeText={onChangeText} value={name} />
+            <Input onChangeText={updateTournamentName} value={name} />
             <Button onPress={closeModal}>Cancel</Button>
             <Button onPress={createTournament}>OK</Button>
           </View>
@@ -44,9 +44,21 @@ export const AddTournament = () => {
 
   function closeModal() {
     setModalVisible(false);
+    updateTournamentName('');
   }
 
   function createTournament() {
+    if (name.trim().length === 0) {
+      Alert.alert("Name can't be empty");
+      return;
+    }
+
+    if (name.match('[a-zA-Z0-9 ]') === null) {
+      Alert.alert(
+        'Invalid character found, only latin characters, numbers and spaces can be used'
+      );
+      return;
+    }
     dispatch(createTournamentAction(name));
     closeModal();
   }

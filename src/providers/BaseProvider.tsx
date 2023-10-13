@@ -5,6 +5,7 @@ import Tournaments from '../screens/tournaments/Tournaments';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Container from '../components/Container';
 import H4 from '../components/H4';
+import { AddTournament } from '../screens/tournaments/components/AddTournament';
 
 const BaseProvider = () => {
   return (
@@ -13,6 +14,7 @@ const BaseProvider = () => {
         <Container>
           <H4>Faceit Tournaments</H4>
           <Tournaments />
+          <AddTournament />
         </Container>
       </SafeAreaProvider>
     </Provider>
