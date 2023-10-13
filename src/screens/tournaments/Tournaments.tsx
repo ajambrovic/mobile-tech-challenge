@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, ListRenderItemInfo, RefreshControl } from 'react-native';
+import {
+  FlatList,
+  ListRenderItemInfo,
+  RefreshControl,
+  Text,
+} from 'react-native';
 import Container from '../../components/Container';
 import H4 from '../../components/H4';
 import {
@@ -70,7 +75,12 @@ const TournamentsData = () => {
   }
 
   if (tournamentsData.length === 0 && !userPulledToRefresh) {
-    return <H6> No tournaments found.</H6>;
+    return (
+      <>
+        <H6> No tournaments found.</H6>
+        {searchQuery.length > 0 ? <H6>Try to refine your search </H6> : null}
+      </>
+    );
   }
 
   return (
