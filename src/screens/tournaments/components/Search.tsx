@@ -1,12 +1,11 @@
-import React, { useState } from 'react';
 import { SearchBar } from '@rneui/themed';
-import { View, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { loadTournamentsDataAction } from '../../../domain/tournaments/tournamentsActions';
 
 export const Search = () => {
-  // just use from redux
-  const [search, setSearch] = useState('');
+  const [searchQuery, setSearchQuery] = useState('');
   const dispatch = useDispatch();
 
   return (
@@ -14,13 +13,13 @@ export const Search = () => {
       <SearchBar
         placeholder="Search tournaments"
         onChangeText={updateSearch}
-        value={search}
+        value={searchQuery}
       />
     </View>
   );
 
   function updateSearch(updatedSearch: string) {
-    setSearch(updatedSearch);
+    setSearchQuery(updatedSearch);
     dispatch(loadTournamentsDataAction(1, updatedSearch));
   }
 };
