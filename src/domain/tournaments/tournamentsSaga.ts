@@ -1,15 +1,13 @@
 import {
   loadTournamentsListEndAction,
   loadTournamentsDataFailAction,
-  LOAD_TOURNAMENTS_DATA_ACTION,
   loadTournamentsDataSuccessAction,
-  EDIT_TOURNAMENT_ACTION,
   updateTournamentAction,
   removeTournamentAction,
-  DELETE_TOURNAMENT_ACTION,
   revertTournamentDeletionAction,
-  CREATE_TOURNAMENT_ACTION,
   addTournamentAction,
+  TOURNAMENTS_ACTIONS,
+  TOURNAMENT_ACTIONS,
 } from './tournamentsActions';
 import { TournamentModel, TournamentsServerModel } from './tournamentsModel';
 import { call, put, select, takeEvery } from 'typed-redux-saga';
@@ -18,19 +16,19 @@ import { getTournament, getTournamentName } from './tournamentsSelectors';
 const FETCH_BASE_URL = 'http://localhost:4000/tournaments';
 
 export function* fetchTournamentsSaga() {
-  yield* takeEvery(LOAD_TOURNAMENTS_DATA_ACTION, doFetchTournamentsSaga);
+  yield* takeEvery(TOURNAMENTS_ACTIONS.load, doFetchTournamentsSaga);
 }
 
 export function* editTournamentSaga() {
-  yield* takeEvery(EDIT_TOURNAMENT_ACTION, doEditTournamentSaga);
+  yield* takeEvery(TOURNAMENT_ACTIONS.edit, doEditTournamentSaga);
 }
 
 export function* deleteTournamentSaga() {
-  yield* takeEvery(DELETE_TOURNAMENT_ACTION, doDeleteTournamentSaga);
+  yield* takeEvery(TOURNAMENT_ACTIONS.delete, doDeleteTournamentSaga);
 }
 
 export function* createTournamentSaga() {
-  yield* takeEvery(CREATE_TOURNAMENT_ACTION, doCreateTournamentSaga);
+  yield* takeEvery(TOURNAMENT_ACTIONS.create, doCreateTournamentSaga);
 }
 
 function* doFetchTournamentsSaga({

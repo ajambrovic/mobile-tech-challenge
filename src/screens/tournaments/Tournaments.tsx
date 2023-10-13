@@ -11,7 +11,7 @@ import {
   getTournamentsNetworkStatus,
 } from '../../domain/tournaments/tournamentsSelectors';
 import { useTypedSelector } from '../../store';
-import { NetworkRequestStatus } from '../../store/networkRequestModel';
+import { NetworkRequestStatus } from '../../domain/networkRequest/networkRequestModel';
 import { TournamentModel } from '../../domain/tournaments/tournamentsModel';
 import { useDispatch } from 'react-redux';
 import {

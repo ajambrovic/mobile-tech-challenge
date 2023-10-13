@@ -1,16 +1,6 @@
-import { NetworkRequestStatus } from '../../store/networkRequestModel';
+import { NetworkRequestStatus } from '../networkRequest/networkRequestModel';
 import { TournamentsReduxModel } from './tournamentsModel';
-import {
-  ADD_TOURNAMENT_ACTION,
-  LOAD_TOURNAMENTS_DATA_ACTION,
-  LOAD_TOURNAMENTS_DATA_FAIL_ACTION,
-  LOAD_TOURNAMENTS_DATA_SUCCESS_ACTION,
-  LOAD_TOURNAMENTS_LIST_END_ACTION,
-  REMOVE_TOURNAMENT_ACTION,
-  REVERT_TOURNAMENT_DELETION_ACTION,
-  UPDATE_TOURNAMENTS_DATA_RETRIEVAL_ACTION,
-  UPDATE_TOURNAMENT_ACTION,
-} from './tournamentsActions';
+import { TOURNAMENTS_ACTIONS, TOURNAMENT_ACTIONS } from './tournamentsActions';
 import { AnyAction } from 'redux';
 import { produce } from 'immer';
 
@@ -28,7 +18,7 @@ export default function tournaments(
   action: AnyAction
 ): TournamentsReduxModel {
   switch (action.type) {
-    case LOAD_TOURNAMENTS_DATA_ACTION:
+    case TOURNAMENTS_ACTIONS.load:
       if (action.payload.page === 1) {
         return {
           ...state,
@@ -43,7 +33,7 @@ export default function tournaments(
         };
       }
 
-    case UPDATE_TOURNAMENTS_DATA_RETRIEVAL_ACTION: {
+    case TOURNAMENTS_ACTIONS.updateDataRetrieval: {
       return {
         ...state,
         page: action.data.page,
@@ -51,7 +41,7 @@ export default function tournaments(
       };
     }
 
-    case LOAD_TOURNAMENTS_DATA_SUCCESS_ACTION:
+    case TOURNAMENTS_ACTIONS.success:
       return {
         ...state,
         tournaments: [...state.tournaments, ...action.data.tournaments],
@@ -61,7 +51,7 @@ export default function tournaments(
         initialLoad: false,
       };
 
-    case LOAD_TOURNAMENTS_LIST_END_ACTION:
+    case TOURNAMENTS_ACTIONS.listEnd:
       return {
         ...state,
         networkRequestStatus: NetworkRequestStatus.Success,
@@ -69,7 +59,7 @@ export default function tournaments(
         listEnd: true,
       };
 
-    case LOAD_TOURNAMENTS_DATA_FAIL_ACTION:
+    case TOURNAMENTS_ACTIONS.fail:
       return {
         ...state,
         networkRequestStatus: NetworkRequestStatus.Fail,
@@ -86,7 +76,7 @@ function tournament(
   action: AnyAction
 ): TournamentsReduxModel {
   switch (action.type) {
-    case UPDATE_TOURNAMENT_ACTION:
+    case TOURNAMENT_ACTIONS.update:
       return produce(state, (draftState) => {
         const index = draftState.tournaments.findIndex(
           (tournamentData) => tournamentData.id === action.data.id
@@ -96,7 +86,7 @@ function tournament(
         }
       });
 
-    case REMOVE_TOURNAMENT_ACTION:
+    case TOURNAMENT_ACTIONS.remove:
       return produce(state, (draftState) => {
         const index = draftState.tournaments.findIndex(
           (tournamentData) => tournamentData.id === action.data
@@ -106,7 +96,7 @@ function tournament(
         }
       });
 
-    case REVERT_TOURNAMENT_DELETION_ACTION:
+    case TOURNAMENT_ACTIONS.revertRemoval:
       return produce(state, (draftState) => {
         draftState.tournaments.splice(
           action.data.tournamentIndex,
@@ -115,7 +105,7 @@ function tournament(
         );
       });
 
-    case ADD_TOURNAMENT_ACTION:
+    case TOURNAMENT_ACTIONS.add:
       return produce(state, (draftState) => {
         draftState.tournaments.splice(0, 0, action.data);
       });

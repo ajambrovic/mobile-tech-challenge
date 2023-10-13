@@ -1,4 +1,4 @@
-import { NetworkRequestModel } from '../../store/networkRequestModel';
+import { NetworkRequestModel } from '../networkRequest/networkRequestModel';
 
 export type TournamentsServerModel = TournamentModel[];
 

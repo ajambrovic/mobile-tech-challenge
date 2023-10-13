@@ -6,7 +6,7 @@ export function updateTournamentsDataRetrievalAction(
   searchQuery: string
 ): AnyAction {
   return {
-    type: UPDATE_TOURNAMENTS_DATA_RETRIEVAL_ACTION,
+    type: TOURNAMENTS_ACTIONS.updateDataRetrieval,
     data: { page, searchQuery },
   };
 }
@@ -16,7 +16,7 @@ export function loadTournamentsDataAction(
   searchQuery: string
 ): AnyAction {
   return {
-    type: LOAD_TOURNAMENTS_DATA_ACTION,
+    type: TOURNAMENTS_ACTIONS.load,
     payload: { page, searchQuery },
   };
 }
@@ -27,27 +27,27 @@ export function loadTournamentsDataSuccessAction(
   searchQuery: string
 ): AnyAction {
   return {
-    type: LOAD_TOURNAMENTS_DATA_SUCCESS_ACTION,
+    type: TOURNAMENTS_ACTIONS.success,
     data: { tournaments, page, searchQuery },
   };
 }
 
 export function loadTournamentsDataFailAction(): AnyAction {
   return {
-    type: LOAD_TOURNAMENTS_DATA_FAIL_ACTION,
+    type: TOURNAMENTS_ACTIONS.fail,
   };
 }
 
 export function loadTournamentsListEndAction(): AnyAction {
   return {
-    type: LOAD_TOURNAMENTS_LIST_END_ACTION,
+    type: TOURNAMENTS_ACTIONS.listEnd,
   };
 }
 export function editTournamentAction(
   data: Pick<TournamentModel, 'id' | 'name'>
 ): AnyAction {
   return {
-    type: EDIT_TOURNAMENT_ACTION,
+    type: TOURNAMENT_ACTIONS.edit,
     data,
   };
 }
@@ -56,21 +56,21 @@ export function updateTournamentAction(
   data: Pick<TournamentModel, 'id' | 'name'>
 ): AnyAction {
   return {
-    type: UPDATE_TOURNAMENT_ACTION,
+    type: TOURNAMENT_ACTIONS.update,
     data,
   };
 }
 
 export function deleteTournamentAction(id: TournamentModel['id']): AnyAction {
   return {
-    type: DELETE_TOURNAMENT_ACTION,
+    type: TOURNAMENT_ACTIONS.delete,
     data: id,
   };
 }
 
 export function removeTournamentAction(id: TournamentModel['id']): AnyAction {
   return {
-    type: REMOVE_TOURNAMENT_ACTION,
+    type: TOURNAMENT_ACTIONS.remove,
     data: id,
   };
 }
@@ -80,38 +80,39 @@ export function revertTournamentDeletionAction(tournamentData: {
   tournamentIndex: number;
 }): AnyAction {
   return {
-    type: REVERT_TOURNAMENT_DELETION_ACTION,
+    type: TOURNAMENT_ACTIONS.revertRemoval,
     data: tournamentData,
   };
 }
 
 export function createTournamentAction(name: string): AnyAction {
   return {
-    type: CREATE_TOURNAMENT_ACTION,
+    type: TOURNAMENT_ACTIONS.create,
     data: name,
   };
 }
 
 export function addTournamentAction(data: TournamentModel): AnyAction {
   return {
-    type: ADD_TOURNAMENT_ACTION,
+    type: TOURNAMENT_ACTIONS.add,
     data,
   };
 }
 
-export const LOAD_TOURNAMENTS_DATA_ACTION = 'tournaments/LOAD_DATA';
-export const LOAD_TOURNAMENTS_DATA_SUCCESS_ACTION =
-  'tournaments/LOAD_DATA_SUCCESS';
-export const LOAD_TOURNAMENTS_DATA_FAIL_ACTION = 'tournaments/LOAD_DATA_FAIL';
-export const LOAD_TOURNAMENTS_LIST_END_ACTION = 'tournaments/LOAD_LIST_END';
-export const UPDATE_TOURNAMENTS_DATA_RETRIEVAL_ACTION =
-  'tournaments/UPDATE_TOURNAMENTS_DATA__RETRIEVAL_ACTION';
+export const TOURNAMENTS_ACTIONS = {
+  load: 'tournaments/LOAD_DATA',
+  success: 'tournaments/LOAD_SUCCESS',
+  fail: 'tournaments/LOAD_DATA_FAIL',
+  listEnd: 'tournaments/LOAD_LIST_END',
+  updateDataRetrieval: 'tournaments/UPDATE_DATA_RETRIEVAL',
+};
 
-export const EDIT_TOURNAMENT_ACTION = 'tournament/EDIT_TOURNAMENT_ACTION';
-export const UPDATE_TOURNAMENT_ACTION = 'tournament/UPDATE_TOURNAMENT_ACTION';
-export const DELETE_TOURNAMENT_ACTION = 'tournament/DELETE_TOURNAMENT_ACTION';
-export const REMOVE_TOURNAMENT_ACTION = 'tournament/REMOVE_TOURNAMENT_ACTION';
-export const REVERT_TOURNAMENT_DELETION_ACTION =
-  'tournament/REVERT_TOURNAMENT_DELETION_ACTION';
-export const CREATE_TOURNAMENT_ACTION = 'tournament/CREATE_TOURNAMENT_ACTION';
-export const ADD_TOURNAMENT_ACTION = 'tournament/ADD_TOURNAMENT_ACTION';
+export const TOURNAMENT_ACTIONS = {
+  edit: 'tournament/EDIT_TOURNAMENT',
+  update: 'tournament/UPDATE_TOURNAMENT',
+  delete: 'tournament/DELETE_TOURNAMENT',
+  remove: 'tournament/REMOVE_TOURNAMENT',
+  revertRemoval: 'tournament/REVERT_REMOVAL',
+  create: 'tournament/CREATE_TOURNAMENT',
+  add: 'tournament/ADD_TOURNAMENT',
+};
