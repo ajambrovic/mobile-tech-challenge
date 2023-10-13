@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Modal, Alert } from 'react-native';
+import { View, Modal, Alert, StyleSheet } from 'react-native';
 import Button from '../../../components/Button';
 import { useDispatch } from 'react-redux';
 import { FAB } from '@rneui/themed';
 import Input from '../../../components/Input';
 import { createTournamentAction } from '../../../domain/tournaments/tournamentsActions';
+import { TournamentModalStyle } from './TournamentModalStyle.style';
 
 export const AddTournament = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -19,7 +20,7 @@ export const AddTournament = () => {
         onPress={openModal}
         color="green"
         placement="right"
-        style={{ marginBottom: '10%' }}
+        style={styles.fab}
       />
       <Modal
         animationType="slide"
@@ -27,11 +28,21 @@ export const AddTournament = () => {
         visible={modalVisible}
         onRequestClose={closeModal}
       >
-        <View style={stylesModal.centeredView}>
-          <View style={stylesModal.modalView}>
+        <View style={TournamentModalStyle.centeredView}>
+          <View style={TournamentModalStyle.modalView}>
             <Input onChangeText={updateTournamentName} value={name} />
-            <Button onPress={closeModal}>Cancel</Button>
-            <Button onPress={createTournament}>OK</Button>
+            <Button
+              onPress={closeModal}
+              style={TournamentModalStyle.buttonClose}
+            >
+              Cancel
+            </Button>
+            <Button
+              onPress={createTournament}
+              style={TournamentModalStyle.buttonConfirm}
+            >
+              OK
+            </Button>
           </View>
         </View>
       </Modal>
@@ -64,46 +75,8 @@ export const AddTournament = () => {
   }
 };
 
-const stylesModal = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'black',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
+const styles = StyleSheet.create({
+  fab: {
+    marginBottom: ' 10%',
   },
 });

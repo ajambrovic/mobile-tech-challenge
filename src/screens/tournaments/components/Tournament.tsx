@@ -1,33 +1,9 @@
 import React from 'react';
 import { TournamentModel } from '../../../domain/tournaments/tournamentsModel';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text } from 'react-native';
 import { EditTournament } from './EditTournament';
 import { DeleteTournament } from './DeleteTournament';
-
-const styles = StyleSheet.create({
-  container: {
-    shadowColor: 'black',
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    shadowOpacity: 0.26,
-    elevation: 8,
-    backgroundColor: 'white',
-    padding: 20,
-    borderRadius: 10,
-    marginVertical: 5,
-    marginHorizontal: 10,
-    flexDirection: 'row',
-  },
-  titleContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  title: {
-    flexWrap: 'wrap',
-    marginHorizontal: 10,
-  },
-});
+import { TournamentStyle } from './Tournament.style';
 
 export const Tournament = ({
   tournamentData,
@@ -35,18 +11,22 @@ export const Tournament = ({
   tournamentData: TournamentModel;
 }) => {
   return (
-    <View style={styles.container}>
-      <View style={styles.titleContainer}>
-        <Text style={styles.title}>Name: {tournamentData.name}</Text>
-        <Text style={styles.title}>Game: {tournamentData.game}</Text>
-        <Text style={styles.title}>Organizer: {tournamentData.organizer}</Text>
-        <Text style={styles.title}>
+    <View style={TournamentStyle.container}>
+      <View style={TournamentStyle.titleContainer}>
+        <Text style={TournamentStyle.title}>Name: {tournamentData.name}</Text>
+        <Text style={TournamentStyle.title}>Game: {tournamentData.game}</Text>
+        <Text style={TournamentStyle.title}>
+          Organizer: {tournamentData.organizer}
+        </Text>
+        <Text style={TournamentStyle.title}>
           Current participants: {tournamentData.participants.current}
         </Text>
-        <Text style={styles.title}>
+        <Text style={TournamentStyle.title}>
           Max participants: {tournamentData.participants.max}
         </Text>
-        <Text style={styles.title}>Start date: {tournamentData.startDate}</Text>
+        <Text style={TournamentStyle.title}>
+          Start date: {tournamentData.startDate}
+        </Text>
         <EditTournament name={tournamentData.name} id={tournamentData.id} />
         <DeleteTournament id={tournamentData.id} />
       </View>

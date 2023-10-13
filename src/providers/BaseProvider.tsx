@@ -6,12 +6,14 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Container from '../components/Container';
 import H4 from '../components/H4';
 import { AddTournament } from '../screens/tournaments/components/AddTournament';
+import { Search } from '../screens/tournaments/components/Search';
 
 const BaseProvider = () => {
   return (
     <Provider store={store}>
       <SafeAreaProvider>
         <Container>
+          <Search />
           <H4>Faceit Tournaments</H4>
           <Tournaments />
           <AddTournament />

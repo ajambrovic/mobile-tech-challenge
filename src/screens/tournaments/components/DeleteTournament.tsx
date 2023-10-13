@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { TournamentModel } from '../../../domain/tournaments/tournamentsModel';
-import { View, StyleSheet, Modal } from 'react-native';
-import Button from '../../../components/Button';
+import { Modal, View } from 'react-native';
 import { useDispatch } from 'react-redux';
-import { deleteTournamentAction } from '../../../domain/tournaments/tournamentsActions';
+import Button from '../../../components/Button';
 import H6 from '../../../components/H6';
+import { deleteTournamentAction } from '../../../domain/tournaments/tournamentsActions';
+import { TournamentModel } from '../../../domain/tournaments/tournamentsModel';
+import { TournamentModalStyle } from './TournamentModalStyle.style';
 
 export const DeleteTournament = ({ id }: Pick<TournamentModel, 'id'>) => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -19,11 +20,21 @@ export const DeleteTournament = ({ id }: Pick<TournamentModel, 'id'>) => {
         visible={modalVisible}
         onRequestClose={closeModal}
       >
-        <View style={stylesModal.centeredView}>
-          <View style={stylesModal.modalView}>
+        <View style={TournamentModalStyle.centeredView}>
+          <View style={TournamentModalStyle.modalView}>
             <H6>Do you really want to delete this tournament?</H6>
-            <Button onPress={closeModal}>Cancel</Button>
-            <Button onPress={deleteTournament}>Confirm</Button>
+            <Button
+              onPress={closeModal}
+              style={TournamentModalStyle.buttonClose}
+            >
+              Cancel
+            </Button>
+            <Button
+              onPress={deleteTournament}
+              style={TournamentModalStyle.buttonConfirm}
+            >
+              Confirm
+            </Button>
           </View>
         </View>
       </Modal>
@@ -43,47 +54,3 @@ export const DeleteTournament = ({ id }: Pick<TournamentModel, 'id'>) => {
     closeModal();
   }
 };
-
-const stylesModal = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'black',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-});

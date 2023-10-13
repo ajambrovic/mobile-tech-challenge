@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { TournamentModel } from '../../../domain/tournaments/tournamentsModel';
-import { View, StyleSheet, Modal, Alert } from 'react-native';
+import { Alert, Modal, View } from 'react-native';
+import { useDispatch } from 'react-redux';
 import Button from '../../../components/Button';
 import Input from '../../../components/Input';
-import { useDispatch } from 'react-redux';
 import { editTournamentAction } from '../../../domain/tournaments/tournamentsActions';
+import { TournamentModel } from '../../../domain/tournaments/tournamentsModel';
+import { TournamentModalStyle } from './TournamentModalStyle.style';
 
 export const EditTournament = ({
   id,
@@ -27,11 +28,21 @@ export const EditTournament = ({
         visible={modalVisible}
         onRequestClose={closeModal}
       >
-        <View style={stylesModal.centeredView}>
-          <View style={stylesModal.modalView}>
+        <View style={TournamentModalStyle.centeredView}>
+          <View style={TournamentModalStyle.modalView}>
             <Input onChangeText={onChangeText} value={updatedName} />
-            <Button onPress={closeModal}>Cancel</Button>
-            <Button onPress={updateTournamentData}>Update</Button>
+            <Button
+              onPress={closeModal}
+              style={TournamentModalStyle.buttonClose}
+            >
+              Cancel
+            </Button>
+            <Button
+              onPress={updateTournamentData}
+              style={TournamentModalStyle.buttonConfirm}
+            >
+              Update
+            </Button>
           </View>
         </View>
       </Modal>
@@ -65,47 +76,3 @@ export const EditTournament = ({
     closeModal();
   }
 };
-
-const stylesModal = StyleSheet.create({
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 22,
-  },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-  },
-  button: {
-    borderRadius: 20,
-    padding: 10,
-    elevation: 2,
-  },
-  buttonOpen: {
-    backgroundColor: '#F194FF',
-  },
-  buttonClose: {
-    backgroundColor: '#2196F3',
-  },
-  textStyle: {
-    color: 'white',
-    fontWeight: 'bold',
-    textAlign: 'center',
-  },
-  modalText: {
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-});
