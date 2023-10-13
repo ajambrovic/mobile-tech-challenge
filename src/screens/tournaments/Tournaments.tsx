@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-  FlatList,
-  ListRenderItemInfo,
-  RefreshControl,
-  Text,
-} from 'react-native';
+import { FlatList, ListRenderItemInfo, RefreshControl } from 'react-native';
 import Container from '../../components/Container';
 import H4 from '../../components/H4';
 import {
