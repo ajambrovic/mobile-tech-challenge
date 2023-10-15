@@ -72,10 +72,7 @@ function* doEditTournamentSaga({
   try {
     yield* put(updateTournamentAction(data));
     yield* call(fetch, `${API_TOURNAMENTS_URL}?${data.id}`, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
+      ...DEFAULT_HEADERS,
       method: 'PATCH',
       body: JSON.stringify({
         name: data.name,
@@ -115,11 +112,8 @@ function* doCreateTournamentSaga({
 }) {
   try {
     const response = yield* call(fetch, `${API_TOURNAMENTS_URL}`, {
-      headers: {
-        Accept: 'application/json',
-        'Content-Type': 'application/json',
-      },
       method: 'POST',
+      ...DEFAULT_HEADERS,
       body: JSON.stringify({
         name: data,
       }),
@@ -130,3 +124,10 @@ function* doCreateTournamentSaga({
     console.log(error);
   }
 }
+
+const DEFAULT_HEADERS = {
+  headers: {
+    Accept: 'application/json',
+    'Content-Type': 'application/json',
+  },
+};

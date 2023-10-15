@@ -82,7 +82,8 @@ function tournament(
         const index = draftState.tournaments.findIndex(
           (tournamentData) => tournamentData.id === action.data.id
         );
-        if (index !== -1) {
+        const elementFound = index !== -1;
+        if (elementFound) {
           draftState.tournaments[index].name = action.data.name;
         }
       });
@@ -92,7 +93,8 @@ function tournament(
         const index = draftState.tournaments.findIndex(
           (tournamentData) => tournamentData.id === action.data
         );
-        if (index !== -1) {
+        const elementFound = index !== -1;
+        if (elementFound) {
           draftState.tournaments.splice(index, 1);
         }
       });
