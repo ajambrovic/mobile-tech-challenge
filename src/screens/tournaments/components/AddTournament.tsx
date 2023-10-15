@@ -37,18 +37,8 @@ export const AddTournament = () => {
               style={TournamentModalStyle.input}
             />
             <View style={TournamentModalStyle.buttonContainer}>
-              <Button
-                onPress={closeModal}
-                style={TournamentModalStyle.buttonClose}
-              >
-                Cancel
-              </Button>
-              <Button
-                onPress={createTournament}
-                style={TournamentModalStyle.buttonConfirm}
-              >
-                OK
-              </Button>
+              <Button onPress={closeModal}>Cancel</Button>
+              <Button onPress={createTournament}>OK</Button>
             </View>
           </View>
         </View>

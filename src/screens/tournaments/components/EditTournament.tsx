@@ -39,18 +39,8 @@ export const EditTournament = ({ id }: Pick<TournamentModel, 'id'>) => {
               style={TournamentModalStyle.input}
             />
             <View style={TournamentModalStyle.buttonContainer}>
-              <Button
-                onPress={closeModal}
-                style={TournamentModalStyle.buttonClose}
-              >
-                Cancel
-              </Button>
-              <Button
-                onPress={updateTournamentData}
-                style={TournamentModalStyle.buttonConfirm}
-              >
-                Update
-              </Button>
+              <Button onPress={closeModal}>Cancel</Button>
+              <Button onPress={updateTournamentData}>Update</Button>
             </View>
           </View>
         </View>
