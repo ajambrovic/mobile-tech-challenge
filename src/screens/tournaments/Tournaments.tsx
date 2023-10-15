@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, ListRenderItemInfo, RefreshControl } from 'react-native';
+import {
+  FlatList,
+  ListRenderItemInfo,
+  RefreshControl,
+  View,
+} from 'react-native';
 import { useDispatch } from 'react-redux';
 import H6 from 'src/components/H6';
 import { INITIAL_TOURNAMENTS_PAGE } from 'src/constants/api';
@@ -21,6 +26,7 @@ import { useTypedSelector } from 'src/store';
 import { Tournament } from './components/Tournament';
 import { TournamentsInitialLoader } from './components/TournamentsInitialLoader';
 import { TournamentsLoadingFailed } from './components/TournamentsLoadingFailed';
+import { TournamentStyle } from './components/Tournament.style';
 
 export const Tournaments = () => {
   const [userPulledToRefresh, setUserPulledToRefresh] = useState(false);
@@ -59,10 +65,10 @@ export const Tournaments = () => {
     tournamentsData.length === 0 && !userPulledToRefresh;
   if (weDidNotClearTheDataWithPullOnRefresh) {
     return (
-      <>
+      <View style={TournamentStyle.container}>
         <H6> No tournaments found.</H6>
         {searchQuery.length > 0 ? <H6>Try to refine your search </H6> : null}
-      </>
+      </View>
     );
   }
 
