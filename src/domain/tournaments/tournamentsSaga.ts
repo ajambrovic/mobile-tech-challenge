@@ -3,13 +3,13 @@ import { call, put, select, takeEvery } from 'typed-redux-saga';
 import {
   TOURNAMENTS_ACTIONS,
   TOURNAMENT_ACTIONS,
-  addTournamentAction,
+  addTournamentLocallyAction,
   loadTournamentsDataFailAction,
   loadTournamentsDataSuccessAction,
   loadTournamentsListEndAction,
-  removeTournamentAction,
+  removeTournamentLocallyAction,
   revertTournamentDeletionAction,
-  updateTournamentAction,
+  updateTournamentLocallyAction,
 } from './tournamentsActions';
 import { TournamentModel, TournamentsServerModel } from './tournamentsModel';
 import { getTournament, getTournamentName } from './tournamentsSelectors';
@@ -70,7 +70,7 @@ function* doEditTournamentSaga({
   }
 
   try {
-    yield* put(updateTournamentAction(data));
+    yield* put(updateTournamentLocallyAction(data));
     yield* call(fetch, `${API_TOURNAMENTS_URL}?${data.id}`, {
       ...DEFAULT_HEADERS,
       method: 'PATCH',
@@ -79,7 +79,7 @@ function* doEditTournamentSaga({
       }),
     });
   } catch (error) {
-    yield* put(updateTournamentAction({ ...data, name: currentName }));
+    yield* put(updateTournamentLocallyAction({ ...data, name: currentName }));
   }
 }
 
@@ -95,7 +95,7 @@ function* doDeleteTournamentSaga({
   }
 
   try {
-    yield* put(removeTournamentAction(data));
+    yield* put(removeTournamentLocallyAction(data));
     yield* call(fetch, `${API_TOURNAMENTS_URL}?${data}`, {
       method: 'DELETE',
     });
@@ -119,7 +119,7 @@ function* doCreateTournamentSaga({
       }),
     });
     const newTournament: TournamentModel = yield response.json();
-    yield* put(addTournamentAction(newTournament));
+    yield* put(addTournamentLocallyAction(newTournament));
   } catch (error) {
     console.log(error);
   }

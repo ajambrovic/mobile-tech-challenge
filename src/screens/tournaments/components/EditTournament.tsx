@@ -3,7 +3,7 @@ import { Alert, Modal, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Button from 'src/components/Button';
 import Input from 'src/components/Input';
-import { editTournamentAction } from 'src/domain/tournaments/tournamentsActions';
+import { postEditTournamentToServerAction } from 'src/domain/tournaments/tournamentsActions';
 import { TournamentModel } from 'src/domain/tournaments/tournamentsModel';
 import { getTournamentName } from 'src/domain/tournaments/tournamentsSelectors';
 import { useTypedSelector } from 'src/store';
@@ -73,7 +73,7 @@ export const EditTournament = ({ id }: Pick<TournamentModel, 'id'>) => {
       return;
     }
 
-    dispatch(editTournamentAction({ id, name: updatedName }));
+    dispatch(postEditTournamentToServerAction({ id, name: updatedName }));
     closeModal();
   }
 };

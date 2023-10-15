@@ -43,7 +43,7 @@ export function loadTournamentsListEndAction(): AnyAction {
     type: TOURNAMENTS_ACTIONS.listEnd,
   };
 }
-export function editTournamentAction(
+export function postEditTournamentToServerAction(
   data: Pick<TournamentModel, 'id' | 'name'>
 ): AnyAction {
   return {
@@ -52,7 +52,7 @@ export function editTournamentAction(
   };
 }
 
-export function updateTournamentAction(
+export function updateTournamentLocallyAction(
   data: Pick<TournamentModel, 'id' | 'name'>
 ): AnyAction {
   return {
@@ -61,14 +61,18 @@ export function updateTournamentAction(
   };
 }
 
-export function deleteTournamentAction(id: TournamentModel['id']): AnyAction {
+export function postDeleteTournamentToServerAction(
+  id: TournamentModel['id']
+): AnyAction {
   return {
     type: TOURNAMENT_ACTIONS.delete,
     data: id,
   };
 }
 
-export function removeTournamentAction(id: TournamentModel['id']): AnyAction {
+export function removeTournamentLocallyAction(
+  id: TournamentModel['id']
+): AnyAction {
   return {
     type: TOURNAMENT_ACTIONS.remove,
     data: id,
@@ -85,14 +89,14 @@ export function revertTournamentDeletionAction(tournamentData: {
   };
 }
 
-export function createTournamentAction(name: string): AnyAction {
+export function postTournamentToServerAction(name: string): AnyAction {
   return {
     type: TOURNAMENT_ACTIONS.create,
     data: name,
   };
 }
 
-export function addTournamentAction(data: TournamentModel): AnyAction {
+export function addTournamentLocallyAction(data: TournamentModel): AnyAction {
   return {
     type: TOURNAMENT_ACTIONS.add,
     data,

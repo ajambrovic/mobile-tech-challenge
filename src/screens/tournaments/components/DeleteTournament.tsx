@@ -3,7 +3,7 @@ import { Modal, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Button from 'src/components/Button';
 import H6 from 'src/components/H6';
-import { deleteTournamentAction } from 'src/domain/tournaments/tournamentsActions';
+import { postDeleteTournamentToServerAction } from 'src/domain/tournaments/tournamentsActions';
 import { TournamentModel } from 'src/domain/tournaments/tournamentsModel';
 import { TournamentModalStyle } from './TournamentModalStyle.style';
 
@@ -50,7 +50,7 @@ export const DeleteTournament = ({ id }: Pick<TournamentModel, 'id'>) => {
   }
 
   function deleteTournament() {
-    dispatch(deleteTournamentAction(id));
+    dispatch(postDeleteTournamentToServerAction(id));
     closeModal();
   }
 };

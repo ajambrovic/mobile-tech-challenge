@@ -4,7 +4,7 @@ import { Alert, Modal, StyleSheet, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 import Button from 'src/components/Button';
 import Input from 'src/components/Input';
-import { createTournamentAction } from 'src/domain/tournaments/tournamentsActions';
+import { postTournamentToServerAction } from 'src/domain/tournaments/tournamentsActions';
 import { TournamentModalStyle } from './TournamentModalStyle.style';
 import { isTournamentNameValid } from './tournamentUtil';
 
@@ -71,7 +71,7 @@ export const AddTournament = () => {
       Alert.alert(errorMessage);
       return;
     }
-    dispatch(createTournamentAction(name));
+    dispatch(postTournamentToServerAction(name));
     closeModal();
   }
 };
