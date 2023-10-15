@@ -67,6 +67,6 @@ export const AddTournament = () => {
 
 const styles = StyleSheet.create({
   fab: {
-    marginBottom: ' 10%',
+    marginBottom: '10%',
   },
 });
