@@ -38,9 +38,10 @@ export function loadTournamentsDataFailAction(): AnyAction {
   };
 }
 
-export function loadTournamentsListEndAction(): AnyAction {
+export function loadTournamentsListEndAction(searchQuery: string): AnyAction {
   return {
     type: TOURNAMENTS_ACTIONS.listEnd,
+    data: searchQuery,
   };
 }
 export function postEditTournamentToServerAction(

@@ -52,7 +52,7 @@ function* doFetchTournamentsSaga({
       );
       return;
     }
-    yield* put(loadTournamentsListEndAction());
+    yield* put(loadTournamentsListEndAction(payload.searchQuery));
   } catch (error) {
     yield* put(loadTournamentsDataFailAction());
   }

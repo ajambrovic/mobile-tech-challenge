@@ -58,6 +58,7 @@ export default function tournaments(
         networkRequestStatus: NetworkRequestStatus.Success,
         initialLoad: false,
         listEnd: true,
+        searchQuery: action.data,
       };
 
     case TOURNAMENTS_ACTIONS.fail:
