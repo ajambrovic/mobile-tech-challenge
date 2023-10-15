@@ -1,3 +1,7 @@
+import { Dimensions } from 'react-native';
+
+export const SCREEN_WIDTH = Dimensions.get('screen').width;
+
 const theme = {
   palette: {
     primary: {
@@ -31,35 +35,35 @@ const theme = {
   typography: {
     h1: {
       'font-weight': 'bold',
-      'font-size': '68px',
+      'font-size': SCREEN_WIDTH / 6,
     },
     h2: {
       'font-weight': 'bold',
-      'font-size': '50px',
+      'font-size': SCREEN_WIDTH / 8,
     },
     h3: {
       'font-weight': 'bold',
-      'font-size': '38px',
+      'font-size': SCREEN_WIDTH / 10,
     },
     h4: {
       'font-weight': 'bold',
-      'font-size': '28px',
+      'font-size': SCREEN_WIDTH / 14,
     },
     h5: {
       'font-weight': 'bold',
-      'font-size': '22px',
+      'font-size': SCREEN_WIDTH / 18,
     },
     h6: {
       'font-weight': 'bold',
-      'font-size': '16px',
+      'font-size': SCREEN_WIDTH / 25,
     },
     body: {
       'font-weight': 'normal',
-      'font-size': '14px',
+      'font-size': SCREEN_WIDTH / 27,
     },
     button: {
       'font-weight': 'bold',
-      'font-size': '14px',
+      'font-size': SCREEN_WIDTH / 27,
       'text-transform': 'uppercase',
     },
   },
