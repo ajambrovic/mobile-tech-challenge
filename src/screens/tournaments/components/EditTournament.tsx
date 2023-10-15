@@ -9,6 +9,7 @@ import { getTournamentName } from 'src/domain/tournaments/tournamentsSelectors';
 import { useTypedSelector } from 'src/store';
 import { TournamentModalStyle } from './TournamentModalStyle.style';
 import { isTournamentNameValid } from './tournamentUtil';
+import H6 from 'src/components/H6';
 
 export const EditTournament = ({ id }: Pick<TournamentModel, 'id'>) => {
   const tournamentName = useTypedSelector((state) =>
@@ -33,11 +34,8 @@ export const EditTournament = ({ id }: Pick<TournamentModel, 'id'>) => {
       >
         <View style={TournamentModalStyle.centeredView}>
           <View style={TournamentModalStyle.modalView}>
-            <Input
-              onChangeText={onChangeText}
-              value={updatedName}
-              style={TournamentModalStyle.input}
-            />
+            <H6>Edit tournament</H6>
+            <Input onChangeText={onChangeText} value={updatedName} />
             <View style={TournamentModalStyle.buttonContainer}>
               <Button onPress={closeModal}>Cancel</Button>
               <Button onPress={updateTournamentData}>Update</Button>

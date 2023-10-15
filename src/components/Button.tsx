@@ -6,7 +6,7 @@ import styled from 'styled-components/native';
 const ButtonContent = styled.Text<{ pressed?: boolean }>`
   background: transparent;
   border: 1px solid ${theme.palette.secondary.main};
-  border-radius: ${theme.borderRadius};
+  border-radius: ${theme.borderRadius}px;
   color: ${theme.palette.primary.main};
   padding: ${theme.spacing(2)};
   ${theme.typography.button};

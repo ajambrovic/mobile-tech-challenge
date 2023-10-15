@@ -7,6 +7,8 @@ import Input from 'src/components/Input';
 import { postTournamentToServerAction } from 'src/domain/tournaments/tournamentsActions';
 import { TournamentModalStyle } from './TournamentModalStyle.style';
 import { isTournamentNameValid } from './tournamentUtil';
+import theme from 'src/theme';
+import H6 from 'src/components/H6';
 
 export const AddTournament = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -17,9 +19,9 @@ export const AddTournament = () => {
     <>
       <FAB
         visible={true}
-        icon={{ name: 'add', color: 'white' }}
+        icon={{ name: 'add', color: theme.palette.text.primary }}
         onPress={openModal}
-        color="green"
+        color={theme.palette.primary.main}
         placement="right"
         style={styles.fab}
       />
@@ -31,11 +33,8 @@ export const AddTournament = () => {
       >
         <View style={TournamentModalStyle.centeredView}>
           <View style={TournamentModalStyle.modalView}>
-            <Input
-              onChangeText={updateTournamentName}
-              value={name}
-              style={TournamentModalStyle.input}
-            />
+            <H6>Add tournament</H6>
+            <Input onChangeText={updateTournamentName} value={name} />
             <View style={TournamentModalStyle.buttonContainer}>
               <Button onPress={closeModal}>Cancel</Button>
               <Button onPress={createTournament}>OK</Button>

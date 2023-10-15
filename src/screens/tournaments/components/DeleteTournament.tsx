@@ -23,8 +23,10 @@ export const DeleteTournament = ({ id }: Pick<TournamentModel, 'id'>) => {
         <View style={TournamentModalStyle.centeredView}>
           <View style={TournamentModalStyle.modalView}>
             <H6>Do you really want to delete this tournament?</H6>
-            <Button onPress={closeModal}>Cancel</Button>
-            <Button onPress={deleteTournament}>Confirm</Button>
+            <View style={TournamentModalStyle.buttonContainer}>
+              <Button onPress={closeModal}>Cancel</Button>
+              <Button onPress={deleteTournament}>Confirm</Button>
+            </View>
           </View>
         </View>
       </Modal>

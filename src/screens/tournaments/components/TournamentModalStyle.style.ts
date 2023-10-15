@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import theme from 'src/theme';
 
 export const TournamentModalStyle = StyleSheet.create({
   centeredView: {
@@ -6,12 +7,15 @@ export const TournamentModalStyle = StyleSheet.create({
     justifyContent: 'center',
   },
   modalView: {
-    backgroundColor: 'white',
+    backgroundColor: theme.palette.background.body,
+    padding: theme.contentPadding * 4,
+    borderColor: theme.palette.background.alt2,
+    borderWidth: 1,
   },
   buttonContainer: {
+    justifyContent: 'center',
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
+    columnGap: 10,
+    margin: 10,
   },
-  input: { width: '100%' },
 });

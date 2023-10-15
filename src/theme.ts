@@ -26,7 +26,8 @@ const theme = {
     },
   },
   spacing: (multiplier = 1) => `${4 * multiplier}px`,
-  borderRadius: '4px',
+  borderRadius: 4,
+  contentPadding: 4,
   typography: {
     h1: {
       'font-weight': 'bold',
