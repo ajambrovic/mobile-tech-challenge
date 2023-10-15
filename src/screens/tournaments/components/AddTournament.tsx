@@ -6,6 +6,7 @@ import Button from 'src/components/Button';
 import Input from 'src/components/Input';
 import { createTournamentAction } from 'src/domain/tournaments/tournamentsActions';
 import { TournamentModalStyle } from './TournamentModalStyle.style';
+import { isTournamentNameValid } from './tournamentUtil';
 
 export const AddTournament = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -30,19 +31,25 @@ export const AddTournament = () => {
       >
         <View style={TournamentModalStyle.centeredView}>
           <View style={TournamentModalStyle.modalView}>
-            <Input onChangeText={updateTournamentName} value={name} />
-            <Button
-              onPress={closeModal}
-              style={TournamentModalStyle.buttonClose}
-            >
-              Cancel
-            </Button>
-            <Button
-              onPress={createTournament}
-              style={TournamentModalStyle.buttonConfirm}
-            >
-              OK
-            </Button>
+            <Input
+              onChangeText={updateTournamentName}
+              value={name}
+              style={TournamentModalStyle.input}
+            />
+            <View style={TournamentModalStyle.buttonContainer}>
+              <Button
+                onPress={closeModal}
+                style={TournamentModalStyle.buttonClose}
+              >
+                Cancel
+              </Button>
+              <Button
+                onPress={createTournament}
+                style={TournamentModalStyle.buttonConfirm}
+              >
+                OK
+              </Button>
+            </View>
           </View>
         </View>
       </Modal>
@@ -59,15 +66,9 @@ export const AddTournament = () => {
   }
 
   function createTournament() {
-    if (name.trim().length === 0) {
-      Alert.alert("Name can't be empty");
-      return;
-    }
-
-    if (name.match('[a-zA-Z0-9 ]') === null) {
-      Alert.alert(
-        'Invalid character found, only latin characters, numbers and spaces can be used'
-      );
+    const errorMessage = isTournamentNameValid(name);
+    if (errorMessage !== undefined) {
+      Alert.alert(errorMessage);
       return;
     }
     dispatch(createTournamentAction(name));

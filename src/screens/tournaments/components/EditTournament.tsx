@@ -5,19 +5,22 @@ import Button from 'src/components/Button';
 import Input from 'src/components/Input';
 import { editTournamentAction } from 'src/domain/tournaments/tournamentsActions';
 import { TournamentModel } from 'src/domain/tournaments/tournamentsModel';
+import { getTournamentName } from 'src/domain/tournaments/tournamentsSelectors';
+import { useTypedSelector } from 'src/store';
 import { TournamentModalStyle } from './TournamentModalStyle.style';
+import { isTournamentNameValid } from './tournamentUtil';
 
-export const EditTournament = ({
-  id,
-  name,
-}: Pick<TournamentModel, 'id' | 'name'>) => {
-  const [updatedName, onChangeText] = useState(name);
+export const EditTournament = ({ id }: Pick<TournamentModel, 'id'>) => {
+  const tournamentName = useTypedSelector((state) =>
+    getTournamentName(state, id)
+  );
+  const [updatedName, onChangeText] = useState(tournamentName);
   const [modalVisible, setModalVisible] = useState(false);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    onChangeText(name);
-  }, [name]);
+    onChangeText(tournamentName);
+  }, [tournamentName]);
 
   return (
     <>
@@ -30,19 +33,25 @@ export const EditTournament = ({
       >
         <View style={TournamentModalStyle.centeredView}>
           <View style={TournamentModalStyle.modalView}>
-            <Input onChangeText={onChangeText} value={updatedName} />
-            <Button
-              onPress={closeModal}
-              style={TournamentModalStyle.buttonClose}
-            >
-              Cancel
-            </Button>
-            <Button
-              onPress={updateTournamentData}
-              style={TournamentModalStyle.buttonConfirm}
-            >
-              Update
-            </Button>
+            <Input
+              onChangeText={onChangeText}
+              value={updatedName}
+              style={TournamentModalStyle.input}
+            />
+            <View style={TournamentModalStyle.buttonContainer}>
+              <Button
+                onPress={closeModal}
+                style={TournamentModalStyle.buttonClose}
+              >
+                Cancel
+              </Button>
+              <Button
+                onPress={updateTournamentData}
+                style={TournamentModalStyle.buttonConfirm}
+              >
+                Update
+              </Button>
+            </View>
           </View>
         </View>
       </Modal>
@@ -58,17 +67,9 @@ export const EditTournament = ({
   }
 
   function updateTournamentData() {
-    if (updatedName.trim().length === 0) {
-      Alert.alert("Can't update to an empty string");
-      closeModal();
-      return;
-    }
-
-    if (updatedName.match('[a-zA-Z0-9 ]') === null) {
-      Alert.alert(
-        'Invalid character found, only latin characters, numbers and spaces can be used'
-      );
-      closeModal();
+    const errorMessage = isTournamentNameValid(updatedName);
+    if (errorMessage !== undefined) {
+      Alert.alert(errorMessage);
       return;
     }
 

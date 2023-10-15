@@ -28,7 +28,7 @@ export const Tournament = ({
         <Text style={TournamentStyle.title}>
           Start date: {tournamentData.startDate}
         </Text>
-        <EditTournament name={tournamentData.name} id={tournamentData.id} />
+        <EditTournament id={tournamentData.id} />
         <DeleteTournament id={tournamentData.id} />
       </View>
     </View>

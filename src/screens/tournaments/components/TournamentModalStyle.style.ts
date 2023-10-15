@@ -14,6 +14,7 @@ export const TournamentModalStyle = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
+    width: '95%',
     margin: 20,
     backgroundColor: 'black',
     borderRadius: 20,
@@ -28,6 +29,13 @@ export const TournamentModalStyle = StyleSheet.create({
     shadowRadius: 4,
     elevation: 5,
   },
+  buttonContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'space-between',
+    margin: 20,
+  },
+  input: { width: '100%' },
   buttonConfirm: {
     backgroundColor: '#F194FF',
     ...button,
