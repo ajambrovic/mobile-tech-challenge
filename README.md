@@ -207,3 +207,21 @@ Delete a tournament.
 ```json
 {}
 ```
+
+## Development Notes
+
+1. In instructions above it is noted that we should manually start Metro, but it starts automatically
+2. In `Challenge.md`, the last line in **Pull-Down-To-Refresh**__ is "bugged"
+3. I've used `Sagas` since I had limited time and I know how to use them, but `Thunks` seem OK as well
+4. I've switched to absolute imports since they look cleaner (and it's easy to do with a project this small)
+5. I've changed the code organisation slightly since, in my current company, we found it easier to get around the code if we have a separate Redux "module" which contains related logic, then having a folder named "actions", "reducercs" and so on.
+6. I didn't use default exports since they make it a bit more [complicated to rename and use](https://blog.neufund.org/why-we-have-banned-default-exports-and-you-should-do-the-same-d51fdc2cf2ad)
+7. I prefer having a named file instead of index.js because it's a bit easier to searh for if you are searching for e.g. `Tournaments.tsx` than find which `index.js` is in `tournaments` folder
+8. I've had an issue with running the Android emulator and the fake API server - every time I've started a new emulator, I've had to run `adb reverse tcp:4000 tcp:4000` (I assume it's because the fake API is using `http` instead of `https`)
+9. I've used `Immer.js` because it simplifes changing the nested code (and makes it more readable).
+10. I've added `lodash.debounce` as a per method package import, even though [it's discouraged](https://lodash.com/per-method-packages), to be consistent with the other `lodash` imports
+11. I've added `RNEUI` (and related `safe-area-context` and `vector-icons`) to speed up development of the `Search` and `FAB` components because I'm assuming you are already using something like this OR have a in-house component library and in a real situation, I wouldn't create these components from scratch
+12. `tslib` import is needed to optimise [TS helpers imports](https://www.typescriptlang.org/tsconfig#importHelpers)
+13. Even though it's not listed as a requirement, in a real project I'd discuss adding [localisation](react-native-localize).
+14. Another thing I'd think about is adding [Redux Toolkit](https://redux-toolkit.js.org/) since it would simplify creating a "combined" selector, e.g. in `Tournaments.tsx`, I have to use multiple selectors because if I would combine that data into a single object, which would be created each time we retrieve it, meaning we would have to handle this ourseves, and ReduxToolkit already has that included with [createSelector](https://redux.js.org/usage/deriving-data-selectors#createselector-overview)
+
