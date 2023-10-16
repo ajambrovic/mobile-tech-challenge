@@ -23,10 +23,10 @@ import {
   getTournamentsNetworkStatus,
 } from 'src/domain/tournaments/tournamentsSelectors';
 import { useTypedSelector } from 'src/store';
-import { Tournament } from './components/Tournament';
 import { TournamentsInitialLoader } from './components/TournamentsInitialLoader';
 import { TournamentsLoadingFailed } from './components/TournamentsLoadingFailed';
-import { TournamentStyle } from './components/Tournament.style';
+import { TournamentDetailsStyle } from './components/TournamentDetails.style';
+import { Tournament } from './components/Tournament';
 
 export const Tournaments = () => {
   const [userPulledToRefresh, setUserPulledToRefresh] = useState(false);
@@ -65,7 +65,7 @@ export const Tournaments = () => {
     tournamentsData.length === 0 && !userPulledToRefresh;
   if (weDidNotClearTheDataWithPullOnRefresh) {
     return (
-      <View style={TournamentStyle.container}>
+      <View style={TournamentDetailsStyle.container}>
         <H6> No tournaments found.</H6>
         {searchQuery.length > 0 ? <H6>Try to refine your search </H6> : null}
       </View>

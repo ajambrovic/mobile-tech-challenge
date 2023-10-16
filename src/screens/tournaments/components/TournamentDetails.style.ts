@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
-import theme from 'src/theme';
+import theme, { SCREEN_WIDTH } from 'src/theme';
 
-export const TournamentStyle = StyleSheet.create({
+export const TournamentDetailsStyle = StyleSheet.create({
   container: {
     borderRadius: theme.borderRadius,
     borderColor: theme.palette.background.alt2,
@@ -11,9 +11,10 @@ export const TournamentStyle = StyleSheet.create({
     padding: theme.contentPadding * 4,
   },
   buttonContainer: {
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     flexDirection: 'row',
-    columnGap: 10,
-    margin: 10,
+    columnGap: SCREEN_WIDTH / 42,
+    marginTop: SCREEN_WIDTH / 42,
+    marginBottom: SCREEN_WIDTH / 42,
   },
 });

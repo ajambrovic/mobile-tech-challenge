@@ -13,7 +13,7 @@ export const DeleteTournament = ({ id }: Pick<TournamentModel, 'id'>) => {
 
   return (
     <>
-      <Button onPress={openModal}>Delete Tournament</Button>
+      <Button onPress={openModal}>Delete</Button>
       <Modal
         animationType="slide"
         transparent={true}

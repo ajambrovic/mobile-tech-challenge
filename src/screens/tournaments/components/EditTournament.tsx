@@ -25,7 +25,7 @@ export const EditTournament = ({ id }: Pick<TournamentModel, 'id'>) => {
 
   return (
     <>
-      <Button onPress={openModal}>Edit Tournament</Button>
+      <Button onPress={openModal}>Edit</Button>
       <Modal
         animationType="slide"
         transparent={true}

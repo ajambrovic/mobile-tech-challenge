@@ -1,31 +1,56 @@
-import React from 'react';
-
-import { View } from 'react-native';
+import React, { useState } from 'react';
+import { Modal, TouchableHighlight, View } from 'react-native';
+import Button from 'src/components/Button';
 import { TournamentModel } from 'src/domain/tournaments/tournamentsModel';
 import { DeleteTournament } from './DeleteTournament';
 import { EditTournament } from './EditTournament';
-import { TournamentStyle } from './Tournament.style';
-import { Text } from 'src/components/Text';
-import H6 from 'src/components/H6';
-import { formatDate } from './tournamentUtil';
+import { TournamentDetails } from './TournamentDetails';
+import { TournamentDetailsStyle } from './TournamentDetails.style';
+import { TournamentModalStyle } from './TournamentModalStyle.style';
 
 export const Tournament = ({
   tournamentData,
 }: {
   tournamentData: TournamentModel;
 }) => {
+  const [modalVisible, setModalVisible] = useState(false);
+
   return (
-    <View style={TournamentStyle.container}>
-      <H6>Name: {tournamentData.name}</H6>
-      <Text>Game: {tournamentData.game}</Text>
-      <Text>Organizer: {tournamentData.organizer}</Text>
-      <Text>Current participants: {tournamentData.participants.current}</Text>
-      <Text>Max participants: {tournamentData.participants.max}</Text>
-      <Text>Start date: {formatDate(tournamentData.startDate)}</Text>
-      <View style={TournamentStyle.buttonContainer}>
+    <View style={TournamentDetailsStyle.container}>
+      <TouchableHighlight
+        activeOpacity={0.6}
+        underlayColor="#DDDDDD"
+        onPress={openModal}
+      >
+        <TournamentDetails tournamentData={tournamentData} />
+      </TouchableHighlight>
+      <View style={TournamentDetailsStyle.buttonContainer}>
         <EditTournament id={tournamentData.id} />
         <DeleteTournament id={tournamentData.id} />
       </View>
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={closeModal}
+      >
+        <View style={TournamentModalStyle.centeredView}>
+          <View style={TournamentModalStyle.modalView}>
+            <TournamentDetails tournamentData={tournamentData} />
+            <View style={TournamentModalStyle.buttonContainer}>
+              <Button onPress={closeModal}>Close</Button>
+            </View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
+
+  function openModal() {
+    setModalVisible(true);
+  }
+
+  function closeModal() {
+    setModalVisible(false);
+  }
 };

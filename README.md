@@ -222,6 +222,6 @@ Delete a tournament.
 10. I've added `lodash.debounce` as a per method package import, even though [it's discouraged](https://lodash.com/per-method-packages), to be consistent with the other `lodash` imports
 11. I've added `RNEUI` (and related `safe-area-context` and `vector-icons`) to speed up development of the `Search` and `FAB` components because I'm assuming you are already using something like this OR have a in-house component library and in a real situation, I wouldn't create these components from scratch
 12. `tslib` import is needed to optimise [TS helpers imports](https://www.typescriptlang.org/tsconfig#importHelpers)
-13. Even though it's not listed as a requirement, in a real project I'd discuss adding [localisation](react-native-localize).
+13. Even though it's not listed as a requirement, in a real project I'd discuss adding [localisation](https://react.i18next.com/).
 14. Another thing I'd think about is adding [Redux Toolkit](https://redux-toolkit.js.org/) since it would simplify creating a "combined" selector, e.g. in `Tournaments.tsx`, I have to use multiple selectors because if I would combine that data into a single object, which would be created each time we retrieve it, meaning we would have to handle this ourseves, and ReduxToolkit already has that included with [createSelector](https://redux.js.org/usage/deriving-data-selectors#createselector-overview)
 
