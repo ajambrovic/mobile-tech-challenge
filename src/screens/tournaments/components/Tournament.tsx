@@ -10,14 +10,10 @@ import { TournamentModalStyle } from './TournamentModalStyle.style';
 import { useTypedSelector } from 'src/store';
 import { getTournamentData } from 'src/domain/tournaments/tournamentsSelectors';
 
-export const Tournament = ({
-  tournamentId,
-}: {
-  tournamentId: TournamentModel['id'];
-}) => {
+export const Tournament = ({ id }: Pick<TournamentModel, 'id'>) => {
   const [modalVisible, setModalVisible] = useState(false);
   const tournamentData = useTypedSelector((state) =>
-    getTournamentData(state, tournamentId)
+    getTournamentData(state, id)
   );
 
   return (
@@ -30,8 +26,8 @@ export const Tournament = ({
         <TournamentDetails tournamentData={tournamentData} />
       </TouchableHighlight>
       <View style={TournamentDetailsStyle.buttonContainer}>
-        <EditTournament id={tournamentData.id} />
-        <DeleteTournament id={tournamentData.id} />
+        <EditTournament id={id} />
+        <DeleteTournament id={id} />
       </View>
       <Modal
         animationType="slide"

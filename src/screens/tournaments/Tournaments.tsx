@@ -102,7 +102,7 @@ export const Tournaments = () => {
 };
 
 function renderItem({ item }: { item: TournamentModel['id'] }) {
-  return <Tournament tournamentId={item} />;
+  return <Tournament id={item} />;
 }
 
 function keyExtractor(id: TournamentModel['id']) {
