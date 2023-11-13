@@ -12,6 +12,10 @@ export const getTournamentData = (state: RootState, id: string) => {
   return getTournamentsData(state)[id];
 };
 
+export const getTournamentIndex = (state: RootState, tournamentId: string) => {
+  return getTournamentIds(state).findIndex((id) => id === tournamentId);
+};
+
 export const getTournamentName = (state: RootState, id: string) => {
   const tournamentData = getTournamentsData(state)[id];
   if (tournamentData) {
