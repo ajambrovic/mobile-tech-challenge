@@ -7,13 +7,18 @@ import { EditTournament } from './EditTournament';
 import { TournamentDetails } from './TournamentDetails';
 import { TournamentDetailsStyle } from './TournamentDetails.style';
 import { TournamentModalStyle } from './TournamentModalStyle.style';
+import { useTypedSelector } from 'src/store';
+import { getTournamentData } from 'src/domain/tournaments/tournamentsSelectors';
 
 export const Tournament = ({
-  tournamentData,
+  tournamentId,
 }: {
-  tournamentData: TournamentModel;
+  tournamentId: TournamentModel['id'];
 }) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const tournamentData = useTypedSelector((state) =>
+    getTournamentData(state, tournamentId)
+  );
 
   return (
     <View style={TournamentDetailsStyle.container}>
