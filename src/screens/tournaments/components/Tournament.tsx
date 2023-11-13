@@ -7,14 +7,9 @@ import { EditTournament } from './EditTournament';
 import { TournamentDetails } from './TournamentDetails';
 import { TournamentDetailsStyle } from './TournamentDetails.style';
 import { TournamentModalStyle } from './TournamentModalStyle.style';
-import { useTypedSelector } from 'src/store';
-import { getTournamentData } from 'src/domain/tournaments/tournamentsSelectors';
 
 export const Tournament = ({ id }: Pick<TournamentModel, 'id'>) => {
   const [modalVisible, setModalVisible] = useState(false);
-  const tournamentData = useTypedSelector((state) =>
-    getTournamentData(state, id)
-  );
 
   return (
     <View style={TournamentDetailsStyle.container}>
@@ -23,7 +18,7 @@ export const Tournament = ({ id }: Pick<TournamentModel, 'id'>) => {
         underlayColor="#DDDDDD"
         onPress={openModal}
       >
-        <TournamentDetails tournamentData={tournamentData} />
+        <TournamentDetails id={id} />
       </TouchableHighlight>
       <View style={TournamentDetailsStyle.buttonContainer}>
         <EditTournament id={id} />
@@ -37,7 +32,7 @@ export const Tournament = ({ id }: Pick<TournamentModel, 'id'>) => {
       >
         <View style={TournamentModalStyle.centeredView}>
           <View style={TournamentModalStyle.modalView}>
-            <TournamentDetails tournamentData={tournamentData} />
+            <TournamentDetails id={id} />
             <View style={TournamentModalStyle.buttonContainer}>
               <Button onPress={closeModal}>Close</Button>
             </View>
