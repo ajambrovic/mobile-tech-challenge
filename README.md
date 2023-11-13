@@ -216,7 +216,7 @@ Delete a tournament.
 4. I've switched to absolute imports since they look cleaner (and it's easy to do with a project this small)
 5. I've changed the code organisation slightly since, in my current company, we found it easier to get around the code if we have a separate Redux "module" which contains related logic, then having a folder named "actions", "reducercs" and so on.
 6. I didn't use default exports since they make it a bit more [complicated to rename and use](https://blog.neufund.org/why-we-have-banned-default-exports-and-you-should-do-the-same-d51fdc2cf2ad)
-7. I prefer having a named file instead of index.js because it's a bit easier to searh for if you are searching for e.g. `Tournaments.tsx` than find which `index.js` is in `tournaments` folder
+7. I prefer having a named file instead of index.js because it's a bit easier to search for if you are searching for e.g. `Tournaments.tsx` than find which `index.js` is in `tournaments` folder
 8. I've had an issue with running the Android emulator and the fake API server - every time I've started a new emulator, I've had to run `adb reverse tcp:4000 tcp:4000` (I assume it's because the fake API is using `http` instead of `https`)
 9. I've used `Immer.js` because it simplifes changing the nested code (and makes it more readable).
 10. I've added `lodash.debounce` as a per method package import, even though [it's discouraged](https://lodash.com/per-method-packages), to be consistent with the other `lodash` imports
