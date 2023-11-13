@@ -75,7 +75,7 @@ function* doEditTournamentSaga({
 
   try {
     yield* put(updateTournamentLocallyAction(data));
-    yield* call(fetch, `${API_TOURNAMENTS_URL}?${data.id}`, {
+    yield* call(fetch, `${API_TOURNAMENTS_URL}/${data.id}`, {
       ...DEFAULT_HEADERS,
       method: 'PATCH',
       body: JSON.stringify({
@@ -101,7 +101,7 @@ function* doDeleteTournamentSaga({
   const tournamentIndex = yield* select(getTournamentIndex, id);
   try {
     yield* put(removeTournamentLocallyAction(id));
-    yield* call(fetch, `${API_TOURNAMENTS_URL}?${id}`, {
+    yield* call(fetch, `${API_TOURNAMENTS_URL}/${id}`, {
       method: 'DELETE',
     });
   } catch (error) {
