@@ -2,8 +2,12 @@ import { NetworkRequestModel } from 'src/domain/networkRequest/networkRequestMod
 
 export type TournamentsServerModel = TournamentModel[];
 
-export type TournamentsReduxModel = TournamentsLocalModal & {
-  tournaments: TournamentsServerModel;
+export type TournamentsReduxModel = TournamentsLocalModal &
+  TournamentsConvertedServerModel;
+
+export type TournamentsConvertedServerModel = {
+  ids: TournamentModel['id'][];
+  byId: Record<TournamentModel['id'], TournamentModel>;
 };
 
 export type TournamentsLocalModal = NetworkRequestModel & {

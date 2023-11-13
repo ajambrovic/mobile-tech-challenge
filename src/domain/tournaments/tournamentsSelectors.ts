@@ -8,25 +8,17 @@ export const getCurrentTournamentPage = (state: RootState) => {
   return getTournaments(state).page;
 };
 
+export const getTournamentData = (state: RootState, id: string) => {
+  return getTournamentsData(state)[id];
+};
+
 export const getTournamentName = (state: RootState, id: string) => {
-  const tournamentData = getTournament(state, id);
+  const tournamentData = getTournamentsData(state)[id];
   if (tournamentData) {
-    return tournamentData.tournament.name;
+    return tournamentData.name;
   }
 
   return '';
-};
-
-export const getTournament = (state: RootState, id: string) => {
-  const tournamentIndex = getTournamentsData(state).findIndex(
-    (tournamentData) => tournamentData.id === id
-  );
-  if (tournamentIndex > -1) {
-    return {
-      tournament: getTournamentsData(state)[tournamentIndex],
-      tournamentIndex,
-    };
-  }
 };
 
 export const getTournamentsInitialLoad = (state: RootState) => {
@@ -37,12 +29,16 @@ export const getTournamentsNetworkStatus = (state: RootState) => {
   return getTournaments(state).networkRequestStatus;
 };
 
-export const getTournamentsData = (state: RootState) => {
-  return getTournaments(state).tournaments;
+export const getTournamentIds = (state: RootState) => {
+  return getTournaments(state).ids;
 };
 
 export const getIsListEnd = (state: RootState) => {
   return getTournaments(state).listEnd;
+};
+
+const getTournamentsData = (state: RootState) => {
+  return getTournaments(state).byId;
 };
 
 const getTournaments = (state: RootState) => {
