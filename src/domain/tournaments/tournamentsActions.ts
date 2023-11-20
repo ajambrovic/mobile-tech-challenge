@@ -1,5 +1,9 @@
 import { AnyAction } from 'redux';
-import { TournamentsServerModel, TournamentModel } from './tournamentsModel';
+import {
+  TournamentsServerModel,
+  TournamentModel,
+  TournamentsConvertedServerModel,
+} from './tournamentsModel';
 
 export function updateTournamentsDataRetrievalAction(
   page: number,
@@ -28,7 +32,11 @@ export function loadTournamentsDataSuccessAction(
 ): AnyAction {
   return {
     type: TOURNAMENTS_ACTIONS.success,
-    data: { tournaments, page, searchQuery },
+    data: {
+      ...convertTournamentsServerDataToLocalData(tournaments),
+      page,
+      searchQuery,
+    },
   };
 }
 
@@ -121,3 +129,19 @@ export const TOURNAMENT_ACTIONS = {
   create: 'tournament/CREATE_TOURNAMENT',
   add: 'tournament/ADD_TOURNAMENT',
 };
+
+function convertTournamentsServerDataToLocalData(
+  tournaments: TournamentsServerModel
+) {
+  const convertedTournaments: TournamentsConvertedServerModel = {
+    ids: [],
+    byId: {},
+  };
+
+  tournaments.forEach((tournament) => {
+    convertedTournaments.ids.push(tournament.id);
+    convertedTournaments.byId[tournament.id] = tournament;
+  });
+
+  return convertedTournaments;
+}

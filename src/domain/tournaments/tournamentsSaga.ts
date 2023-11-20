@@ -12,7 +12,11 @@ import {
   updateTournamentLocallyAction,
 } from './tournamentsActions';
 import { TournamentModel, TournamentsServerModel } from './tournamentsModel';
-import { getTournament, getTournamentName } from './tournamentsSelectors';
+import {
+  getTournamentData,
+  getTournamentIndex,
+  getTournamentName,
+} from './tournamentsSelectors';
 
 export function* fetchTournamentsSaga() {
   yield* takeEvery(TOURNAMENTS_ACTIONS.load, doFetchTournamentsSaga);
@@ -71,7 +75,7 @@ function* doEditTournamentSaga({
 
   try {
     yield* put(updateTournamentLocallyAction(data));
-    yield* call(fetch, `${API_TOURNAMENTS_URL}?${data.id}`, {
+    yield* call(fetch, `${API_TOURNAMENTS_URL}/${data.id}`, {
       ...DEFAULT_HEADERS,
       method: 'PATCH',
       body: JSON.stringify({
@@ -84,23 +88,29 @@ function* doEditTournamentSaga({
 }
 
 function* doDeleteTournamentSaga({
-  data,
+  data: id,
 }: {
   type: string;
   data: TournamentModel['id'];
 }) {
-  const currentTournament = yield* select(getTournament, data);
+  const currentTournament = yield* select(getTournamentData, id);
   if (!currentTournament) {
     return;
   }
 
+  const tournamentIndex = yield* select(getTournamentIndex, id);
   try {
-    yield* put(removeTournamentLocallyAction(data));
-    yield* call(fetch, `${API_TOURNAMENTS_URL}?${data}`, {
+    yield* put(removeTournamentLocallyAction(id));
+    yield* call(fetch, `${API_TOURNAMENTS_URL}/${id}`, {
       method: 'DELETE',
     });
   } catch (error) {
-    yield* put(revertTournamentDeletionAction(currentTournament));
+    yield* put(
+      revertTournamentDeletionAction({
+        tournament: currentTournament,
+        tournamentIndex: tournamentIndex,
+      })
+    );
   }
 }
 

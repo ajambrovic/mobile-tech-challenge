@@ -8,10 +8,11 @@ import { TournamentsReduxModel } from './tournamentsModel';
 const initialState: TournamentsReduxModel = {
   networkRequestStatus: NetworkRequestStatus.InProgress,
   initialLoad: false,
-  tournaments: [],
   listEnd: false,
   page: INITIAL_TOURNAMENTS_PAGE,
   searchQuery: '',
+  ids: [],
+  byId: {},
 };
 
 export default function tournaments(
@@ -23,7 +24,8 @@ export default function tournaments(
       if (action.payload.page === INITIAL_TOURNAMENTS_PAGE) {
         return {
           ...state,
-          tournaments: [],
+          ids: [],
+          byId: {},
           initialLoad: true,
           listEnd: false,
         };
@@ -45,7 +47,11 @@ export default function tournaments(
     case TOURNAMENTS_ACTIONS.success:
       return {
         ...state,
-        tournaments: [...state.tournaments, ...action.data.tournaments],
+        byId: {
+          ...state.byId,
+          ...action.data.byId,
+        },
+        ids: [...state.ids, ...action.data.ids],
         page: action.data.page,
         searchQuery: action.data.searchQuery,
         networkRequestStatus: NetworkRequestStatus.Success,
@@ -80,38 +86,36 @@ function tournament(
   switch (action.type) {
     case TOURNAMENT_ACTIONS.update:
       return produce(state, (draftState) => {
-        const index = draftState.tournaments.findIndex(
-          (tournamentData) => tournamentData.id === action.data.id
-        );
-        const elementFound = index !== -1;
+        const elementFound = !!draftState.byId[action.data.id];
         if (elementFound) {
-          draftState.tournaments[index].name = action.data.name;
+          draftState.byId[action.data.id].name = action.data.name;
         }
       });
 
     case TOURNAMENT_ACTIONS.remove:
       return produce(state, (draftState) => {
-        const index = draftState.tournaments.findIndex(
-          (tournamentData) => tournamentData.id === action.data
-        );
+        const index = draftState.ids.findIndex((id) => id === action.data);
         const elementFound = index !== -1;
         if (elementFound) {
-          draftState.tournaments.splice(index, 1);
+          draftState.ids.splice(index, 1);
+          delete draftState.byId[action.data];
         }
       });
 
     case TOURNAMENT_ACTIONS.revertRemoval:
       return produce(state, (draftState) => {
-        draftState.tournaments.splice(
+        draftState.ids.splice(
           action.data.tournamentIndex,
           0,
-          action.data.tournament
+          action.data.tournamentIndex
         );
+        draftState.byId[action.data.tournamentIndex] = action.data.tournament;
       });
 
     case TOURNAMENT_ACTIONS.add:
       return produce(state, (draftState) => {
-        draftState.tournaments.splice(0, 0, action.data);
+        draftState.ids.unshift(action.data.id);
+        draftState.byId[action.data.id] = action.data;
       });
 
     default:

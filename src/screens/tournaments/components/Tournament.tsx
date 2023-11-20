@@ -8,11 +8,7 @@ import { TournamentDetails } from './TournamentDetails';
 import { TournamentDetailsStyle } from './TournamentDetails.style';
 import { TournamentModalStyle } from './TournamentModalStyle.style';
 
-export const Tournament = ({
-  tournamentData,
-}: {
-  tournamentData: TournamentModel;
-}) => {
+export const Tournament = ({ id }: Pick<TournamentModel, 'id'>) => {
   const [modalVisible, setModalVisible] = useState(false);
 
   return (
@@ -22,11 +18,11 @@ export const Tournament = ({
         underlayColor="#DDDDDD"
         onPress={openModal}
       >
-        <TournamentDetails tournamentData={tournamentData} />
+        <TournamentDetails id={id} />
       </TouchableHighlight>
       <View style={TournamentDetailsStyle.buttonContainer}>
-        <EditTournament id={tournamentData.id} />
-        <DeleteTournament id={tournamentData.id} />
+        <EditTournament id={id} />
+        <DeleteTournament id={id} />
       </View>
       <Modal
         animationType="slide"
@@ -36,7 +32,7 @@ export const Tournament = ({
       >
         <View style={TournamentModalStyle.centeredView}>
           <View style={TournamentModalStyle.modalView}>
-            <TournamentDetails tournamentData={tournamentData} />
+            <TournamentDetails id={id} />
             <View style={TournamentModalStyle.buttonContainer}>
               <Button onPress={closeModal}>Close</Button>
             </View>
