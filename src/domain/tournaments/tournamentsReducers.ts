@@ -86,7 +86,7 @@ function tournament(
   switch (action.type) {
     case TOURNAMENT_ACTIONS.update:
       return produce(state, (draftState) => {
-        const elementFound = draftState.byId[action.data.id] !== null;
+        const elementFound = !!draftState.byId[action.data.id];
         if (elementFound) {
           draftState.byId[action.data.id].name = action.data.name;
         }
@@ -114,7 +114,7 @@ function tournament(
 
     case TOURNAMENT_ACTIONS.add:
       return produce(state, (draftState) => {
-        draftState.ids.splice(0, 0, action.data.id);
+        draftState.ids.unshift(action.data.id);
         draftState.byId[action.data.id] = action.data;
       });
 
