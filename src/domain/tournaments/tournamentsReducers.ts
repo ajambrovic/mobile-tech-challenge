@@ -107,7 +107,7 @@ function tournament(
         draftState.ids.splice(
           action.data.tournamentIndex,
           0,
-          action.data.tournamentIndex
+          action.data.tournament.id
         );
         draftState.byId[action.data.tournamentIndex] = action.data.tournament;
       });
